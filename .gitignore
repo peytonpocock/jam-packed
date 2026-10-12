@@ -1,0 +1,9 @@
+# TouchDesigner autosaves and backups
+Backup/
+*.toe.bak
+CrashAutoSave*
+*.dmp
+# Videos live outside git
+Videos/
+*.mp4
+*.mov
