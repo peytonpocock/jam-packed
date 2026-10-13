@@ -238,7 +238,10 @@ menu(pv, 'Videoblend', 'Blend mode (M)', ['screen', 'reveal', 'cutout', 'warp', 
 fl('React', 'Bodies push video', 0.3, page=pv)
 fl('Videohue', 'Video hue shift', 0.0, page=pv)
 fl('Videosat', 'Video saturation', 1.0, 0.0, 2.0, page=pv)
-fl('Cliplength', 'Seconds per clip', 15.0, 3.0, 60.0, page=pv)
+t = pv.appendToggle('Wholeclip', label='Play whole clip')[0]
+t.default = True
+t.val = True
+fl('Cliplength', 'Seconds per clip (if not whole)', 15.0, 3.0, 60.0, page=pv)
 fl('Fadetime', 'Crossfade seconds', 2.0, 0.0, 8.0, page=pv)
 pv.appendInt('Energymin', label='Energy from')[0].normMin = 1
 pv.appendInt('Energymax', label='Energy to')[0].normMax = 5

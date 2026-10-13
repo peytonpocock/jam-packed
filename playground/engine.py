@@ -297,9 +297,21 @@ def on_frame():
         x = min(1.0, (now - _vid['fade_start']) / max(c.par.Fadetime.eval(), 0.05))
         c.par.Videoxfade = x if _vid['to'] == 1 else 1.0 - x
         if x >= 1.0:
-            _vid.update(fading=False, deck=_vid['to'], clip_start=now)
-    elif now - _vid['clip_start'] > c.par.Cliplength.eval():
+            _vid.update(fading=False, deck=_vid['to'], clip_start=_vid['fade_start'])
+    elif now - _vid['clip_start'] > clip_seconds(_vid['current'], c):
         next_clip()
+
+
+def clip_seconds(entry, c):
+    """How long to show a clip: its own length (finishing the crossfade as it ends), or Cliplength."""
+    if c.par.Wholeclip.eval():
+        try:
+            dur = float((entry or {}).get('duration_s') or 0)
+        except (TypeError, ValueError):
+            dur = 0
+        if dur > 0:
+            return max(2.0, dur - c.par.Fadetime.eval())
+    return c.par.Cliplength.eval()
 
 
 def reload_library():
