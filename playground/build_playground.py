@@ -147,8 +147,6 @@ def connect(dst, *srcs):
             conns = dst.inputConnectors
         if i < len(conns):
             conns[i].connect(s)
-        else:
-            s.outputConnectors[0].connect(dst)
     got = [o.name if o else None for o in dst.inputs]
     want = [s.name for s in srcs]
     if got[:len(want)] != want:
@@ -426,8 +424,12 @@ for i, name in enumerate(('vid_a', 'vid_b')):
     place(d, 7, 3 + i)
     decks.append(d)
 
+vidmix = glsl(jam, 'vidmix', 'vidmix.glsl', 8, 3, OUT_W, OUT_H)
+connect(vidmix, decks[0], decks[1])
+set_uniforms(vidmix, [('uVid', [0, P('Videoxfade'), 0, 0])])
+
 comp = glsl(jam, 'composite', 'composite.glsl', 8, 1, OUT_W, OUT_H)
-connect(comp, looksw, blur, decks[0], decks[1])
+connect(comp, looksw, blur, vidmix)
 set_uniforms(comp, [
     ('uTime', ['absTime.seconds', 0, 0, 0]),
     ('uVid', [S('Videomix'), P('Videoxfade'), M('Videoblend'), S('React')]),

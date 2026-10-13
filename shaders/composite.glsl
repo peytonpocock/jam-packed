@@ -3,8 +3,7 @@
 //
 // Input 0: the current look
 // Input 1: presence (red = body mask, green = depth tone)
-// Input 2: video deck A
-// Input 3: video deck B
+// Input 2: the video decks, already crossfaded and cropped (vidmix.glsl)
 
 uniform float uTime;
 uniform vec4 uVid;    // x Video amount, y A/B crossfade, z Blend mode, w React
@@ -19,22 +18,9 @@ vec3 hueShift(vec3 col, float a)
     return col * c + cross(k, col) * sin(a) + k * dot(k, col) * (1.0 - c);
 }
 
-// Fill the frame with a video, cropping rather than stretching
-vec2 fillUV(vec2 uv, vec2 srcRes)
-{
-    vec2 dstRes = uTDOutputInfo.res.zw;
-    float sa = srcRes.x / max(srcRes.y, 1.0);
-    float da = dstRes.x / dstRes.y;
-    vec2 c = uv - 0.5;
-    if (da > sa) c.y *= sa / da; else c.x *= da / sa;
-    return c + 0.5;
-}
-
 vec3 video(vec2 uv)
 {
-    vec3 a = texture(sTD2DInputs[2], fillUV(uv, uTD2DInfos[2].res.zw)).rgb;
-    vec3 b = texture(sTD2DInputs[3], fillUV(uv, uTD2DInfos[3].res.zw)).rgb;
-    return mix(a, b, clamp(uVid.y, 0.0, 1.0));
+    return texture(sTD2DInputs[2], uv).rgb;
 }
 
 void main()
