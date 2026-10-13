@@ -126,6 +126,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--videos', default=os.path.join(REPO, 'Videos'))
     ap.add_argument('--rescan', action='store_true', help='re-guess clips still tagged_by auto')
+    ap.add_argument('--limit', type=int, default=0, help='stop after this many clips (run again to continue)')
     args = ap.parse_args()
 
     originals = os.path.join(args.videos, 'originals')
@@ -181,7 +182,10 @@ def main():
         e['motion'] = round(mot, 4)
         contact_sheet(fr, os.path.join(thumbs, e['id'] + '.jpg'))
         print('  {:28s} {:10s} {:6.1f}s energy {} {:6s} {}'.format(
-            e['id'], e['orientation'], dur, e['energy'], e['pace'], ','.join(e['colors'])))
+            e['id'][:28], e['orientation'], dur, e['energy'], e['pace'], ','.join(e['colors'])), flush=True)
+        catalog_io.save(cat_path, entries)                   # save as we go, so a stopped scan keeps its work
+        if args.limit and added + updated >= args.limit:
+            break
 
     missing = [e['id'] for e in entries if e.get('file') not in found]
     catalog_io.save(cat_path, entries)
