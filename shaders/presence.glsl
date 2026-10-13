@@ -2,11 +2,11 @@
 // Turns the raw camera image into a clean "where are people" image.
 // Output: red = body mask (0..1), green = depth tone inside the near/far window.
 //
-// Input 0: raw source (Kinect depth, webcam or the demo dancers)
+// Input 0: raw source (Kinect depth, webcam, demo dancers or an AI body mask)
 // Input 1: background snapshot (captured with the C key)
 
-uniform vec4 uDepth;   // x Near, y Far, z Source (0 Kinect, 1 webcam, 2 demo), w Mirror
-uniform vec4 uBg;      // x Use background, y Sensitivity
+uniform vec4 uDepth;   // x Near, y Far, z Source (0 Kinect, 1 webcam, 2 demo, 3 AI mask), w Mirror
+uniform vec4 uBg;      // x Use background, y Sensitivity, z AI mask channel (0 brightness, 1 alpha, 2 red)
 
 layout(location = 0) out vec4 fragColor;
 
@@ -21,10 +21,17 @@ vec2 fillUV(vec2 uv, vec2 srcRes)
     return c + 0.5;
 }
 
-// Body mask for the webcam and demo sources (no real depth available).
+// Body mask for the webcam, demo and AI sources (no real depth available).
 float camMask(vec2 uv, int source, bool useBg, float sens)
 {
     vec4 src = texture(sTD2DInputs[0], uv);
+    if (source == 3) {
+        // AI mask: already a person matte, Sensitivity moves the cut-off
+        int ch = int(uBg.z + 0.5);
+        float v = ch == 1 ? src.a : (ch == 2 ? src.r : dot(src.rgb, vec3(0.299, 0.587, 0.114)));
+        float mid = mix(0.75, 0.25, sens);
+        return smoothstep(mid - 0.15, mid + 0.15, v);
+    }
     if (source == 1 && useBg) {
         // Webcam: anything that differs from the empty room snapshot
         vec4 bg = texture(sTD2DInputs[1], uv);

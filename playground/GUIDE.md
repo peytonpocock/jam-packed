@@ -178,3 +178,13 @@ Press **G** (or **DROP!** on the Drop page) as the drop lands. Everything goes w
 - **Change look every bar**: cycles the looks, then lands back on yours.
 
 It uses the BPM slider for timing, so it's tightest with Auto beat on Tempo.
+
+## AI body mask (MediaPipe)
+
+A neural net finds people instead of comparing against the empty room, so it copes with moving lights, crowds and people standing still. It runs on any GPU (including AMD).
+
+1. Download the latest release zip of the free **MediaPipe TouchDesigner** plugin (github.com/torinmb/mediapipe-touchdesigner, Releases) and unzip it into `!JamPacked/plugins/`.
+2. Drag `MediaPipe.tox` into `/project1` (not inside `jam`). Pick your webcam in its settings and turn on **Image segmentation** (some versions call it Selfie segmentation).
+3. From its `toxes` folder, drag in the segmentation component and connect MediaPipe's output to it, as the plugin's own readme shows.
+4. On the Camera page press **Find AI mask**. It points the mask at the segmentation image and switches Source to the AI body mask. If it can't find it, drag the segmentation output TOP onto the **AI mask image** field yourself.
+5. If people show up inverted or blank, try **AI mask is in**: Brightness, Alpha or Red. **Sensitivity** moves the edge in or out.

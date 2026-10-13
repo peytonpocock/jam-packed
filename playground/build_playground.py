@@ -173,7 +173,9 @@ if old:
     oc = old.op('controls')
     if oc:
         for p in oc.customPars:
-            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying', 'Audiolevel', 'Beatphase', 'Dropstate'):
+            if p.isOP:
+                saved[p.name] = p.val                     # keep the path, not the operator
+            elif not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying', 'Audiolevel', 'Beatphase', 'Dropstate'):
                 saved[p.name] = p.eval()
     ow = old.op('src_webcam')
     if ow is not None and getattr(ow.par, 'device', None) is not None:
@@ -309,7 +311,11 @@ t.default = True
 t.val = True
 
 pc = c.appendCustomPage('Camera')
-menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo'], ['Kinect', 'Webcam', 'Demo dancers'], 'webcam')
+menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo', 'ai'],
+     ['Kinect', 'Webcam', 'Demo dancers', 'AI body mask (MediaPipe)'], 'webcam')
+pc.appendTOP('Aimask', label='AI mask image')
+pc.appendPulse('Findai', label='Find AI mask')
+menu(pc, 'Aichannel', 'AI mask is in', ['lum', 'alpha', 'red'], ['Brightness', 'Alpha', 'Red'])
 pc.appendToggle('Flip', label='Mirror camera')
 c.par.Flip = True
 pc.appendPulse('Calibrate', label='Capture empty room (C)')
@@ -382,9 +388,18 @@ set_uniforms(demo, [('uTime', ['absTime.seconds', 0, 0, 0])])
 place(demo, 0, 2)
 jam.op('src_demo_pixel').nodeY = -3 * 150 - 200
 
+# AI body mask: any TOP you point Aimask at (the MediaPipe plugin's segmentation output)
+ai = jam.create(selectTOP, 'src_ai')
+setexpr(ai, 'top', "(lambda o: o.path if o else '')(op('controls').par.Aimask.eval())")
+place(ai, 0, 3)
+alt = jam.create(switchTOP, 'src_alt')                # demo or AI, so no switch needs 4 inputs
+connect(alt, demo, ai)
+setexpr(alt, 'index', "int(op('controls').par.Source.menuIndex == 3)")
+place(alt, 1, 2)
+
 srcsw = jam.create(switchTOP, 'src_switch')
-connect(srcsw, k, cam, demo)
-setexpr(srcsw, 'index', M('Source'))
+connect(srcsw, k, cam, alt)
+setexpr(srcsw, 'index', "min(op('controls').par.Source.menuIndex, 2)")
 place(srcsw, 1, 1)
 
 bg = jam.create(cacheTOP, 'bg')
@@ -399,7 +414,7 @@ pres = glsl(jam, 'presence', 'presence.glsl', 3, 1, PRES_W, PRES_H, float_fmt=Tr
 connect(pres, srcsw, bg)
 set_uniforms(pres, [
     ('uDepth', [P('Near'), P('Far'), M('Source'), P('Flip')]),
-    ('uBg', [P('Usebg'), P('Sensitivity'), 0, 0]),
+    ('uBg', [P('Usebg'), P('Sensitivity'), M('Aichannel'), 0]),
 ])
 blur = jam.create(blurTOP, 'presence_blur')
 connect(blur, pres)

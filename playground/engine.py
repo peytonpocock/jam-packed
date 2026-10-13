@@ -549,6 +549,28 @@ def reload_library():
 
 # ---------- input routing ----------
 
+def find_ai_mask(quiet=False):
+    """Point Aimask at the MediaPipe plugin's segmentation image, wherever it was dropped in."""
+    c = C()
+    jam = J()
+    best = None
+    for o in op('/').findChildren(type=TOP, maxDepth=6):
+        if o.path.startswith(jam.path + '/'):
+            continue
+        n = o.path.lower()
+        if 'segment' in n or 'mask' in n and 'mediapipe' in n:
+            score = ('mediapipe' in n) * 2 + ('out' in o.name.lower()) + (o.name.lower().endswith('segmentation'))
+            if best is None or score > best[0]:
+                best = (score, o)
+    if best:
+        c.par.Aimask = best[1].path
+        c.par.Source = 'ai'
+        say('AI mask: using ' + best[1].path)
+    elif not quiet:
+        say('No AI mask found. Drop the MediaPipe plugin into the project, turn on its segmentation, then press Find AI mask.')
+    return best is not None
+
+
 def on_pulse(name):
     actions = {
         'Calibrate': calibrate,
@@ -561,6 +583,7 @@ def on_pulse(name):
         'Nextclip': next_clip,
         'Reloadlib': reload_library,
         'Drop': trigger_drop,
+        'Findai': find_ai_mask,
     }
     if name in actions:
         actions[name]()
