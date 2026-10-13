@@ -173,7 +173,7 @@ if old:
     oc = old.op('controls')
     if oc:
         for p in oc.customPars:
-            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying', 'Audiolevel', 'Beatphase'):
+            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying', 'Audiolevel', 'Beatphase', 'Dropstate'):
                 saved[p.name] = p.eval()
     ow = old.op('src_webcam')
     if ow is not None and getattr(ow.par, 'device', None) is not None:
@@ -286,6 +286,27 @@ fl('Invert', 'Invert', 0.0, page=pf)
 fl('Huerotate', 'Hue rotate', 0.0, page=pf)
 fl('Vignette', 'Vignette', 0.3, page=pf)
 fl('Grain', 'Grain', 0.0, page=pf)
+
+# Drop page: one button that sends everything wild for a few bars, then eases back
+pd = c.appendCustomPage('Drop')
+pd.appendPulse('Drop', label='DROP! (G)')
+pd.appendStr('Dropstate', label='Status')
+c.par.Dropstate.readOnly = True
+menu(pd, 'Dropstyle', 'Style', ['chaos', 'glitch', 'kaleido', 'colour', 'warp'],
+     ['Chaos: everything', 'Glitch: RGB split, pixels, scanlines', 'Kaleido: mirrors and spin',
+      'Colour: hue storm and glow', 'Warp: bodies bend the video'])
+pd.appendInt('Dropbars', label='Bars')
+c.par.Dropbars.normMin, c.par.Dropbars.normMax = 1, 16
+c.par.Dropbars.min, c.par.Dropbars.clampMin = 1, True
+c.par.Dropbars.default = 4
+c.par.Dropbars = 4
+fl('Dropamount', 'How wild', 0.85, page=pd)
+fl('Dropreturn', 'Ease back (bars)', 1.0, 0.0, 4.0, page=pd)
+menu(pd, 'Dropcuts', 'Video cuts', ['off', 'bar', 'half', 'beat'],
+     ['Off', 'Every bar', 'Every 2 beats', 'Every beat'], 'bar')
+t = pd.appendToggle('Droplooks', label='Change look every bar')[0]
+t.default = True
+t.val = True
 
 pc = c.appendCustomPage('Camera')
 menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo'], ['Kinect', 'Webcam', 'Demo dancers'], 'webcam')
@@ -503,7 +524,7 @@ pe.text = "def onPulse(par):\n    op('engine').module.on_pulse(par.name)\n    re
 place(pe, 1, -4)
 
 kb = jam.create(keyboardinCHOP, 'keys')
-setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f l v m a')
+setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f l v m a g')
 place(kb, 2, -4)
 ke = jam.create(chopexecuteDAT, 'keys_exec')
 setpar(ke, 'chop', kb.name)

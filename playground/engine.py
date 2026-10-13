@@ -386,6 +386,122 @@ def next_autobeat():
     say('Auto beat: ' + p.menuLabels[p.menuIndex])
 
 
+
+# ---------- drop ----------
+# Press G (or the Drop button) when the drop lands: everything goes wild for a
+# few bars in time with the BPM, then eases back to exactly how it was.
+# The Drop page sets how long, how wild, which style and what else changes.
+
+DROP_STYLES = {
+    # par: value at full drop. A function gets the beat count and returns a value.
+    'chaos': {'Pulse': 1.0, 'Rgbsplit': 0.6, 'Bloom': 0.7, 'Warp': 0.9, 'Glow': 0.8, 'Zoom': 0.6,
+              'Spin': 0.5, 'Huespeed': 0.8, 'Intensity': 1.0, 'Kaleido': 6, 'Grain': 0.3,
+              'Huerotate': lambda beat: (beat * 0.125) % 1.0},
+    'glitch': {'Pulse': 1.0, 'Rgbsplit': 0.9, 'Pixelate': 0.5, 'Scanlines': 0.7, 'Posterize': 0.5,
+               'Grain': 0.5, 'Warp': 0.6, 'Invert': lambda beat: float(int(beat // 4) % 2)},
+    'kaleido': {'Pulse': 0.8, 'Kaleido': 8, 'Mirror': 3, 'Spin': 0.8, 'Zoom': 0.7, 'Bloom': 0.5,
+                'Glow': 0.6, 'Huespeed': 0.5},
+    'colour': {'Pulse': 1.0, 'Bloom': 0.6, 'Glow': 0.9, 'Huespeed': 1.0, 'Videosat': 2.0,
+               'Intensity': 1.0, 'Huerotate': lambda beat: (beat * 0.25) % 1.0,
+               'Videohue': lambda beat: (beat * 0.0625) % 1.0},
+    'warp': {'Pulse': 0.8, 'Warp': 1.0, 'React': 1.0, 'Zoom': -0.6, 'Spin': -0.5, 'Rgbsplit': 0.3,
+             'Bloom': 0.4, 'Videoblend': 3},
+}
+_drop = {'on': False, 'start': 0.0, 'saved': {}, 'beat': -1}
+
+
+def _beat_len():
+    return 60.0 / max(C().par.Bpm.eval(), 1.0)
+
+
+def trigger_drop():
+    """Start a drop, or end the current one early (it still eases back)."""
+    c = C()
+    now = absTime.seconds
+    if _drop['on']:
+        bars = c.par.Dropbars.eval()
+        held = (now - _drop['start']) / (_beat_len() * 4)
+        if held < bars:                                  # jump to the ease-back
+            _drop['start'] = now - bars * 4 * _beat_len()
+        return
+    style = DROP_STYLES.get(c.par.Dropstyle.eval(), DROP_STYLES['chaos'])
+    names = set(style) | {'Look', 'Videoblend'}
+    _drop.update(on=True, start=now, beat=-1,
+                 saved={n: getattr(c.par, n).eval() for n in names if getattr(c.par, n, None) is not None})
+    say('DROP! {} for {} bars'.format(c.par.Dropstyle.eval(), c.par.Dropbars.eval()))
+
+
+def _set(par, value):
+    if par.isMenu:
+        par.menuIndex = int(round(value)) % len(par.menuNames)
+    elif par.isInt:
+        par.val = int(round(value))
+    elif par.isToggle:
+        par.val = bool(value >= 0.5)
+    else:
+        par.val = value
+
+
+def drop_frame(c, now):
+    if not _drop['on']:
+        return
+    beat_len = _beat_len()
+    beats = (now - _drop['start']) / beat_len
+    hold = c.par.Dropbars.eval() * 4
+    ease = c.par.Dropreturn.eval() * 4
+    amount = c.par.Dropamount.eval()
+    if beats < hold:
+        e = 1.0
+    elif beats < hold + ease and ease > 0:
+        x = (beats - hold) / ease
+        e = 1.0 - x * x * (3 - 2 * x)                    # smooth ease back
+    else:
+        e = 0.0
+
+    if e <= 0.0:
+        for n, v in _drop['saved'].items():               # back to exactly how it was
+            p = getattr(c.par, n, None)
+            if p is not None:
+                try:
+                    p.val = v
+                except Exception:
+                    pass
+        _drop['on'] = False
+        c.par.Dropstate = ''
+        say('Drop finished')
+        return
+
+    style = DROP_STYLES.get(c.par.Dropstyle.eval(), DROP_STYLES['chaos'])
+    for n, target in style.items():
+        p = getattr(c.par, n, None)
+        if p is None or n not in _drop['saved']:
+            continue
+        base = _drop['saved'][n]
+        if p.isMenu:
+            base = p.menuNames.index(base) if base in p.menuNames else 0
+        tv = target(beats) if callable(target) else target
+        if p.isMenu or p.isInt or p.isToggle:
+            _set(p, tv if e * amount > 0.5 else base)
+        else:
+            _set(p, float(base) + (tv - float(base)) * e * amount)
+
+    # things that happen on the beat while the drop is held
+    whole = int(beats)
+    if beats < hold and whole != _drop['beat']:
+        _drop['beat'] = whole
+        every = {'off': 0, 'bar': 4, 'half': 2, 'beat': 1}.get(c.par.Dropcuts.eval(), 0)
+        if every and whole > 0 and whole % every == 0:
+            next_clip(fade=False)
+        if c.par.Droplooks.eval() and whole > 0 and whole % 4 == 0:
+            next_look()
+    if beats < hold:
+        c.par.Dropstate = 'DROP  bar {} of {}'.format(int(beats // 4) + 1, int(hold // 4))
+    else:
+        c.par.Dropstate = 'easing back'
+    if beats >= hold and 'Look' in _drop['saved'] and c.par.Droplooks.eval():
+        c.par.Look = _drop['saved']['Look']             # land back on your look as it eases out
+
+
 def on_frame():
     c = C()
     now = absTime.seconds
@@ -395,6 +511,11 @@ def on_frame():
         if not _beat.get('err'):
             say('Audio beat detection problem: {}'.format(e))
             _beat['err'] = True
+    try:
+        drop_frame(c, now)
+    except Exception as e:
+        _drop['on'] = False
+        say('Drop problem: {}'.format(e))
     if not _vid['started']:
         if int(absTime.frame) % 120 == 0:               # retry now and then until clips appear
             next_clip(fade=False)
@@ -439,6 +560,7 @@ def on_pulse(name):
         'Fullscreen': toggle_fullscreen,
         'Nextclip': next_clip,
         'Reloadlib': reload_library,
+        'Drop': trigger_drop,
     }
     if name in actions:
         actions[name]()
@@ -468,3 +590,5 @@ def on_key(channel_name):
         next_blend()
     elif key == 'a':
         next_autobeat()
+    elif key == 'g':
+        trigger_drop()

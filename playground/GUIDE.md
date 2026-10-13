@@ -165,3 +165,16 @@ On the FX page, **Auto beat** (key A) makes the Beat pulse follow the music:
 Turn **Beat pulse** up to see it. **Bass level** shows what it hears, and **Beat sensitivity** catches more or fewer hits.
 
 It listens to the `audio_in` node, which starts on your default recording device (the mic). To use what the PC is playing instead, open Windows Sound settings, Recording tab, right click, Show disabled devices, enable **Stereo Mix**, then pick it in `audio_in`'s Device menu.
+
+## Drops
+
+Press **G** (or **DROP!** on the Drop page) as the drop lands. Everything goes wild in time with the BPM for a few bars, then eases back to exactly how you had it. Press G again to end it early.
+
+- **Style**: Chaos, Glitch, Kaleido, Colour or Warp.
+- **Bars**: how long it lasts (4 by default).
+- **How wild**: how far the sliders get pushed.
+- **Ease back**: how many bars it takes to settle.
+- **Video cuts**: hard cuts to new clips every bar, every 2 beats or every beat.
+- **Change look every bar**: cycles the looks, then lands back on yours.
+
+It uses the BPM slider for timing, so it's tightest with Auto beat on Tempo.
