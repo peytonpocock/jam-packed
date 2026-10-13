@@ -286,9 +286,115 @@ def next_clip(fade=True):
                                                   ', '.join(_as_list(entry.get('tags'))[:4]) or 'no tags')
 
 
+
+# ---------- audio beat detection ----------
+# Listens to the audio_in CHOP (mic, or "Stereo Mix" for what the PC is playing),
+# finds kick drum hits in the bass band, and estimates the tempo from the gaps
+# between them. Autobeat on the FX page picks how the Beat pulse uses it.
+
+_beat = {'prev_bass': 0.0, 'flux_mean': 0.0, 'flux_var': 0.0, 'floor': 0.0, 'peak': 1e-6,
+         'last_hit': -10.0, 'hits': [], 'bpm': None, 'anchor': 0.0, 'phase': 1.0}
+
+
+def _bass_level():
+    """Bass (40 to 160 Hz) energy and overall loudness of the latest audio chunk."""
+    a = J('audio_in')
+    if a is None or a.numChans == 0 or a.numSamples < 64:
+        return None
+    import numpy as np
+    x = a.numpyArray()
+    x = x.mean(axis=0) if x.ndim > 1 else x
+    n = len(x)
+    rate = max(a.rate, 1.0)
+    spec = np.abs(np.fft.rfft(x * np.hanning(n)))
+    f = np.fft.rfftfreq(n, 1.0 / rate)
+    band = spec[(f >= 40) & (f <= 160)]
+    bass = float(band.mean()) if len(band) else 0.0
+    return bass, float(np.sqrt(np.mean(x * x)))
+
+
+def _tempo(hits):
+    """Median gap between recent hits, folded into 80 to 170 BPM."""
+    gaps = [b - a for a, b in zip(hits, hits[1:]) if 0.2 < b - a < 2.0]
+    if len(gaps) < 4:
+        return None
+    bpms = []
+    for g in gaps:
+        bpm = 60.0 / g
+        while bpm < 80:
+            bpm *= 2
+        while bpm > 170:
+            bpm /= 2
+        bpms.append(bpm)
+    bpms.sort()
+    mid = bpms[len(bpms) // 2]
+    near = [b for b in bpms if abs(b - mid) < mid * 0.05]   # average around the median, frames are coarse
+    return sum(near) / len(near)
+
+
+def beat_frame(c, now):
+    mode = c.par.Autobeat.eval()
+    if mode == 'off':
+        return
+    got = _bass_level()
+    if got is None:
+        return
+    bass, loud = got
+    b = _beat
+    # meter: bass level relative to the loudest recent bass
+    b['peak'] = max(bass, b['peak'] * 0.995)
+    c.par.Audiolevel = min(1.0, bass / max(b['peak'], 1e-6))
+
+    # onset: a jump in bass well above its usual frame-to-frame jumps
+    flux = max(0.0, bass - b['prev_bass'])
+    b['prev_bass'] = bass
+    k = 0.03
+    b['flux_mean'] += k * (flux - b['flux_mean'])
+    b['flux_var'] += k * ((flux - b['flux_mean']) ** 2 - b['flux_var'])
+    sens = c.par.Beatsens.eval()
+    thresh = b['flux_mean'] + (3.2 - 2.4 * sens) * (b['flux_var'] ** 0.5)
+    hit = flux > thresh and bass > 0.15 * b['peak'] and now - b['last_hit'] > 0.22
+
+    if hit:
+        b['last_hit'] = now
+        b['hits'] = [t for t in b['hits'] if now - t < 8.0] + [now]
+        bpm = _tempo(b['hits'])
+        if bpm:
+            b['bpm'] = bpm if b['bpm'] is None else b['bpm'] + 0.25 * (bpm - b['bpm'])
+            c.par.Bpm = round(b['bpm'], 1)
+
+    if mode == 'hits':
+        # each kick fires one pulse that fades over half a beat
+        period = 60.0 / (b['bpm'] or c.par.Bpm.eval())
+        b['phase'] = min(1.0, (now - b['last_hit']) / max(period, 0.2))
+    else:
+        # tempo: steady clock at the detected BPM, pulled into line by each kick
+        period = 60.0 / max(c.par.Bpm.eval(), 1.0)
+        if hit:
+            ph = ((now - b['anchor']) / period) % 1.0
+            if ph < 0.3 or ph > 0.7:
+                b['anchor'] = now                      # close to a beat: snap to it
+        b['phase'] = ((now - b['anchor']) / period) % 1.0
+    c.par.Beatphase = b['phase']
+
+
+def next_autobeat():
+    c = C()
+    p = c.par.Autobeat
+    names = list(p.menuNames)
+    p.val = names[(names.index(p.eval()) + 1) % len(names)]
+    say('Auto beat: ' + p.menuLabels[p.menuIndex])
+
+
 def on_frame():
     c = C()
     now = absTime.seconds
+    try:
+        beat_frame(c, now)
+    except Exception as e:
+        if not _beat.get('err'):
+            say('Audio beat detection problem: {}'.format(e))
+            _beat['err'] = True
     if not _vid['started']:
         if int(absTime.frame) % 120 == 0:               # retry now and then until clips appear
             next_clip(fade=False)
@@ -360,3 +466,5 @@ def on_key(channel_name):
         next_clip()
     elif key == 'm':
         next_blend()
+    elif key == 'a':
+        next_autobeat()

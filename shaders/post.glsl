@@ -8,7 +8,7 @@ uniform float uTime;
 uniform vec4 uFx1;   // x Bloom, y RGB split, z Scanlines, w Pixelate
 uniform vec4 uFx2;   // x Mirror (0 off, 1 left/right, 2 top/bottom, 3 quad), y Posterize, z Pulse, w Invert
 uniform vec4 uFx3;   // x Vignette, y Grain, z Kaleido segments (0 off), w Hue rotate
-uniform vec4 uFx4;   // x BPM
+uniform vec4 uFx4;   // x BPM, y beat phase from audio, z auto beat (0 off, 1 hits, 2 tempo)
 
 layout(location = 0) out vec4 fragColor;
 
@@ -88,7 +88,7 @@ void main()
     col = mix(col, 1.0 - clamp(col, 0.0, 1.0), uFx2.w);
 
     // Pulse: a smooth brightness throb on the beat (no hard strobe)
-    float beat = fract(t * max(uFx4.x, 1.0) / 60.0);
+    float beat = uFx4.z > 0.5 ? clamp(uFx4.y, 0.0, 1.0) : fract(t * max(uFx4.x, 1.0) / 60.0);
     col *= 1.0 + uFx2.z * (pow(1.0 - beat, 3.0) * 0.9 - 0.25);
 
     // Scanlines, vignette, grain

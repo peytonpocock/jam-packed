@@ -153,3 +153,15 @@ Crystal, Glitch. **L** cycles through them.
 Every slider lives on the **controls** node, and the visuals only read from
 there. Hooking up the fader box later means adding a MIDI In CHOP that writes
 into those same parameters, so presets, smoothing and the keyboard all keep working.
+
+## Auto beat from the mic or PC audio
+
+On the FX page, **Auto beat** (key A) makes the Beat pulse follow the music:
+
+- **Off**: pulses at the BPM slider.
+- **Hits**: one pulse on every kick drum.
+- **Tempo**: works out the BPM (the slider moves on its own) and pulses in time, staying locked to the kicks.
+
+Turn **Beat pulse** up to see it. **Bass level** shows what it hears, and **Beat sensitivity** catches more or fewer hits.
+
+It listens to the `audio_in` node, which starts on your default recording device (the mic). To use what the PC is playing instead, open Windows Sound settings, Recording tab, right click, Show disabled devices, enable **Stereo Mix**, then pick it in `audio_in`'s Device menu.

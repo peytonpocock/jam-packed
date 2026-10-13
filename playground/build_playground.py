@@ -173,7 +173,7 @@ if old:
     oc = old.op('controls')
     if oc:
         for p in oc.customPars:
-            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying'):
+            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying', 'Audiolevel', 'Beatphase'):
                 saved[p.name] = p.eval()
     ow = old.op('src_webcam')
     if ow is not None and getattr(ow.par, 'device', None) is not None:
@@ -275,6 +275,13 @@ c.par.Kaleido.default = 0
 fl('Posterize', 'Posterize', 0.0, page=pf)
 fl('Pulse', 'Beat pulse', 0.0, page=pf)
 fl('Bpm', 'BPM', 124.0, 60.0, 180.0, page=pf)
+menu(pf, 'Autobeat', 'Auto beat (A)', ['off', 'hits', 'tempo'],
+     ['Off: pulse at the BPM slider', 'Hits: pulse on every kick', 'Tempo: lock to the detected BPM'])
+fl('Beatsens', 'Beat sensitivity', 0.5, page=pf)
+fl('Audiolevel', 'Bass level (meter)', 0.0, page=pf)
+c.par.Audiolevel.readOnly = True
+fl('Beatphase', 'Beat phase', 1.0, page=pf)
+c.par.Beatphase.readOnly = True
 fl('Invert', 'Invert', 0.0, page=pf)
 fl('Huerotate', 'Hue rotate', 0.0, page=pf)
 fl('Vignette', 'Vignette', 0.3, page=pf)
@@ -446,7 +453,7 @@ set_uniforms(post, [
     ('uFx1', [S('Bloom'), S('Rgbsplit'), S('Scanlines'), S('Pixelate')]),
     ('uFx2', [M('Mirror'), S('Posterize'), S('Pulse'), S('Invert')]),
     ('uFx3', [S('Vignette'), S('Grain'), P('Kaleido'), S('Huerotate')]),
-    ('uFx4', [P('Bpm'), 0, 0, 0]),
+    ('uFx4', [P('Bpm'), P('Beatphase'), "op('controls').par.Autobeat.menuIndex", 0]),
 ])
 
 viewsw = jam.create(switchTOP, 'view_switch')
@@ -468,6 +475,15 @@ setpar(win, 'winop', out.path)
 setpar(win, 'borders', False)
 place(win, 12, -1)
 
+# ---- Audio in for beat detection: your default recording device (mic).
+# To use what the PC is playing, enable "Stereo Mix" in Windows sound settings
+# and pick it in audio_in's Device menu.
+try:
+    ain = jam.create(audiodeviceinCHOP, 'audio_in')
+    place(ain, 5, -4)
+except Exception as e:
+    warn('could not create the audio input: {}'.format(e))
+
 # ---- Logic: engine, slider buttons, keyboard, per-frame video playlist
 eng = jam.create(textDAT, 'engine')
 code = open(ROOT + '/engine.py').read()
@@ -487,7 +503,7 @@ pe.text = "def onPulse(par):\n    op('engine').module.on_pulse(par.name)\n    re
 place(pe, 1, -4)
 
 kb = jam.create(keyboardinCHOP, 'keys')
-setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f l v m')
+setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f l v m a')
 place(kb, 2, -4)
 ke = jam.create(chopexecuteDAT, 'keys_exec')
 setpar(ke, 'chop', kb.name)
