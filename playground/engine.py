@@ -554,7 +554,14 @@ def find_ai_mask(quiet=False):
     c = C()
     jam = J()
     best = None
-    for o in op('/').findChildren(type=TOP, maxDepth=6):
+    # The MediaPipe component's own output shows the body mask once segmentation is on and overlays are off
+    for comp in op('/').findChildren(type=COMP, maxDepth=4):
+        if 'mediapipe' in comp.name.lower() and not comp.path.startswith(jam.path):
+            outs = comp.findChildren(type=outTOP, depth=1)
+            if outs:
+                best = (100, outs[0])
+                break
+    for o in ([] if best else op('/').findChildren(type=TOP, maxDepth=6)):
         if o.path.startswith(jam.path + '/'):
             continue
         n = o.path.lower()
