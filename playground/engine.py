@@ -398,7 +398,7 @@ DROP_STYLES = {
               'Spin': 0.5, 'Huespeed': 0.8, 'Intensity': 1.0, 'Kaleido': 6, 'Grain': 0.3,
               'Huerotate': lambda beat: (beat * 0.125) % 1.0},
     'glitch': {'Pulse': 1.0, 'Rgbsplit': 0.9, 'Pixelate': 0.5, 'Scanlines': 0.7, 'Posterize': 0.5,
-               'Grain': 0.5, 'Warp': 0.6, 'Invert': lambda beat: float(int(beat // 4) % 2)},
+               'Grain': 0.5, 'Warp': 0.6},
     'kaleido': {'Pulse': 0.8, 'Kaleido': 8, 'Mirror': 3, 'Spin': 0.8, 'Zoom': 0.7, 'Bloom': 0.5,
                 'Glow': 0.6, 'Huespeed': 0.5},
     'colour': {'Pulse': 1.0, 'Bloom': 0.6, 'Glow': 0.9, 'Huespeed': 1.0, 'Videosat': 2.0,
