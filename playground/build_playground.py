@@ -135,10 +135,24 @@ def set_uniforms(g, uniforms):
 
 
 def connect(dst, *srcs):
-    # Multi-input ops (Switch, GLSL) only grow a new input slot once the previous
-    # one is wired, so append each source to the next free input instead of indexing.
-    for s in srcs:
-        s.outputConnectors[0].connect(dst)
+    """Wire srcs into dst's inputs 0, 1, 2... in order, then check it worked."""
+    for i, s in enumerate(srcs):
+        conns = dst.inputConnectors
+        if i >= len(conns):
+            # some ops only grow a new empty slot after they cook
+            try:
+                dst.cook(force=True)
+            except Exception:
+                pass
+            conns = dst.inputConnectors
+        if i < len(conns):
+            conns[i].connect(s)
+        else:
+            s.outputConnectors[0].connect(dst)
+    got = [o.name if o else None for o in dst.inputs]
+    want = [s.name for s in srcs]
+    if got[:len(want)] != want:
+        warn('{} inputs are {}, expected {}'.format(dst.name, got, want))
 
 
 # ------------------------------------------------------------------ network
@@ -500,9 +514,18 @@ except Exception:
 def _report():
     bad = []
     for o in jam.children:
-        e = o.errors()
+        e = o.errors() or ''
+        w = o.warnings() or ''
+        if 'compile' in w.lower():
+            e = (e + ' ' + w).strip()
         if e and o.name not in ('src_kinect', 'src_webcam', 'vid_a', 'vid_b'):
-            bad.append('{}: {}'.format(o.name, e))
+            bad.append('{}: {} inputs={}'.format(o.name, e, [i.name if i else None for i in o.inputs]))
+            if o.isTOP and o.OPType == 'glslTOP' and not any('compile log' in b for b in bad):
+                info = jam.create(infoDAT, 'diag_info')
+                info.par.op = o.path
+                info.cook(force=True)
+                bad.append('compile log for {}:\n{}'.format(o.name, info.text[:1500]))
+                info.destroy()
     for m in problems:
         log('setup note: ' + m)
     if bad:
