@@ -558,8 +558,8 @@ def find_ai_mask(quiet=False):
         if o.path.startswith(jam.path + '/'):
             continue
         n = o.path.lower()
-        if 'segment' in n or 'mask' in n and 'mediapipe' in n:
-            score = ('mediapipe' in n) * 2 + ('out' in o.name.lower()) + (o.name.lower().endswith('segmentation'))
+        if o.name == 'seg_data' or 'segment' in n or 'mask' in n and 'mediapipe' in n:
+            score = (o.name == 'seg_data') * 10 + ('mediapipe' in n) * 2 + ('out' in o.name.lower()) + (o.name.lower().endswith('segmentation'))
             if best is None or score > best[0]:
                 best = (score, o)
     if best:
