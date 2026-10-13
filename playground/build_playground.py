@@ -397,8 +397,17 @@ connect(alt, demo, ai)
 setexpr(alt, 'index', "int(op('controls').par.Source.menuIndex == 3)")
 place(alt, 1, 2)
 
+# Windows only lets one program use the webcam at a time. Once MediaPipe is linked it owns the camera,
+# so webcam mode reads its plain video (segmentation off) and our own webcam input stands down.
+MP_LINKED = "bool(op('controls').par.Aimask.eval())"
+setexpr(cam, 'active', 'not ' + MP_LINKED)
+campick = jam.create(switchTOP, 'cam_pick')
+connect(campick, cam, ai)
+setexpr(campick, 'index', 'int({})'.format(MP_LINKED))
+place(campick, 1, 0)
+
 srcsw = jam.create(switchTOP, 'src_switch')
-connect(srcsw, k, cam, alt)
+connect(srcsw, k, campick, alt)
 setexpr(srcsw, 'index', "min(op('controls').par.Source.menuIndex, 2)")
 place(srcsw, 1, 1)
 

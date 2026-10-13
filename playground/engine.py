@@ -502,9 +502,40 @@ def drop_frame(c, now):
         c.par.Look = _drop['saved']['Look']             # land back on your look as it eases out
 
 
+_mp = {'source': None}
+
+
+def mediapipe_frame(c):
+    """MediaPipe owns the webcam once linked: segmentation on in AI mode, plain video otherwise."""
+    src = c.par.Source.eval()
+    if src == _mp['source']:
+        return
+    _mp['source'] = src
+    m = c.par.Aimask.eval()
+    if not m:
+        return
+    comp = m.parent()
+    while comp is not None and 'mediapipe' not in comp.name.lower():
+        comp = comp.parent()
+    if comp is None:
+        return
+    for p in comp.customPars:
+        if p.label.strip().lower() == 'image segmentation':
+            p.val = (src == 'ai')
+        elif p.label.strip().lower() == 'show overlays':
+            p.val = False
+    say('MediaPipe: ' + ('body mask on' if src == 'ai' else 'plain camera for ' + src + ' mode'))
+
+
 def on_frame():
     c = C()
     now = absTime.seconds
+    try:
+        mediapipe_frame(c)
+    except Exception as e:
+        if not _mp.get('err'):
+            say('MediaPipe switch problem: {}'.format(e))
+            _mp['err'] = True
     try:
         beat_frame(c, now)
     except Exception as e:
