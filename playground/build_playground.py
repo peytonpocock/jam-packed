@@ -5,8 +5,9 @@
 #   1. Save a new TouchDesigner project as  !JamPacked/playground/playground.toe
 #   2. Open the Textport (Alt+T) and paste:
 #        exec(open(project.folder + '/build_playground.py').read())
-#   3. Look inside /project1/jam. Re-running rebuilds it from scratch
-#      (your presets are safe, they live in presets/looks.json).
+#   3. Look inside /project1/jam. Re-running rebuilds it from scratch. Your
+#      slider settings and webcam choice carry over, presets live in
+#      presets/looks.json and the video tags in library/catalog.yaml.
 #
 # Every shader is linked to its .glsl file on disk, so editing a shader file
 # updates the visuals live.
@@ -17,6 +18,8 @@ ROOT = project.folder.replace('\\', '/')            # .../!JamPacked/playground
 REPO = os.path.dirname(ROOT)
 SHADERS = REPO + '/shaders'
 PRESETS = REPO + '/presets/looks.json'
+LIBDIR = REPO + '/library'
+VIDEOS = REPO + '/Videos'
 OUT_W, OUT_H = 1280, 720                            # Non-Commercial caps output at 1280
 PRES_W, PRES_H = 640, 360
 
@@ -138,10 +141,30 @@ def connect(dst, *srcs):
 
 # ------------------------------------------------------------------ network
 
+LOOKS = [
+    ('neon', 'Neon ghosts', 'look1_neon_ghosts.glsl'),
+    ('liquid', 'Liquid', 'look2_liquid.glsl'),
+    ('kaleido', 'Kaleido tunnel', 'look3_kaleido_tunnel.glsl'),
+    ('echo', 'Chroma echo', 'look4_chroma_echo.glsl'),
+    ('embers', 'Embers', 'look5_embers.glsl'),
+    ('thermal', 'Thermal', 'look6_thermal.glsl'),
+    ('crystal', 'Crystal', 'look7_crystal.glsl'),
+    ('glitch', 'Glitch', 'look8_glitch.glsl'),
+]
+
 host = op('/project1') or op('/')
 old = host.op('jam')
+saved, saved_device = {}, None
 if old:
-    log('Removing the previous build')
+    oc = old.op('controls')
+    if oc:
+        for p in oc.customPars:
+            if not p.isPulse and p.name not in ('Usebg', 'Videoxfade', 'Nowplaying'):
+                saved[p.name] = p.eval()
+    ow = old.op('src_webcam')
+    if ow is not None and getattr(ow.par, 'device', None) is not None:
+        saved_device = ow.par.device.eval()
+    log('Removing the previous build (keeping your slider settings)')
     old.destroy()
 jam = host.create(containerCOMP, 'jam')
 jam.nodeX, jam.nodeY = 0, 0
@@ -161,9 +184,17 @@ def fl(name, label, default, lo=0.0, hi=1.0, page=None):
     return p
 
 
-look = pg.appendMenu('Look', label='Look')[0]
-look.menuNames = ['neon', 'liquid', 'kaleido']
-look.menuLabels = ['1  Neon ghosts', '2  Liquid', '3  Kaleido tunnel']
+def menu(page, name, label, names, labels, default=None):
+    p = page.appendMenu(name, label=label)[0]
+    p.menuNames = names
+    p.menuLabels = labels
+    p.default = default or names[0]
+    p.val = p.default
+    return p
+
+
+menu(pg, 'Look', 'Look (L)', [k for k, _, _ in LOOKS],
+     ['{}  {}'.format(i + 1, n) for i, (_, n, _) in enumerate(LOOKS)])
 fl('Intensity', 'Intensity', 0.7)
 fl('Hue', 'Hue', 0.55)
 fl('Huespeed', 'Hue speed', 0.15)
@@ -176,20 +207,66 @@ fl('Spin', 'Spin', 0.05, -1.0, 1.0)
 fl('Master', 'Master', 1.0)
 pg.appendPulse('Randomize', label='Randomize (R)')
 pg.appendPulse('Blackout', label='Blackout (B)')
-pg.appendInt('Slot', label='Preset slot')[0].normMax = 9
+pg.appendInt('Slot', label='Preset slot')[0].normMax = 20
 c.par.Slot = 1
 c.par.Slot.min = 1
 c.par.Slot.clampMin = True
 pg.appendPulse('Loadpreset', label='Load preset')
 pg.appendPulse('Savepreset', label='Save preset')
 
+# Video library page
+pv = c.appendCustomPage('Video')
+fl('Videomix', 'Video amount', 0.8, page=pv)
+fl('Lookmix', 'Look amount', 1.0, 0.0, 1.5, page=pv)
+menu(pv, 'Videoblend', 'Blend mode (M)', ['screen', 'reveal', 'cutout', 'warp', 'paint'],
+     ['Screen: look over video', 'Reveal: video inside people', 'Cutout: people cut holes',
+      'Warp: people bend the video', 'Paint: look colours the video'])
+fl('React', 'Bodies push video', 0.3, page=pv)
+fl('Videohue', 'Video hue shift', 0.0, page=pv)
+fl('Videosat', 'Video saturation', 1.0, 0.0, 2.0, page=pv)
+fl('Cliplength', 'Seconds per clip', 15.0, 3.0, 60.0, page=pv)
+fl('Fadetime', 'Crossfade seconds', 2.0, 0.0, 8.0, page=pv)
+pv.appendInt('Energymin', label='Energy from')[0].normMin = 1
+pv.appendInt('Energymax', label='Energy to')[0].normMax = 5
+for n, v in (('Energymin', 1), ('Energymax', 5)):
+    p = getattr(c.par, n)
+    p.normMin, p.normMax, p.min, p.max = 1, 5, 1, 5
+    p.clampMin = p.clampMax = True
+    p.default = v
+    p.val = v
+menu(pv, 'Orientation', 'Orientation', ['any', 'horizontal', 'vertical'], ['Any', 'Horizontal', 'Vertical'])
+menu(pv, 'Usefor', 'Playing on', ['any', 'backdrop', 'totem'], ['Anything', 'Backdrop', 'Totem'])
+pv.appendStr('Tags', label='Only tags (comma list)')
+pv.appendPulse('Nextclip', label='Next clip (V)')
+pv.appendPulse('Reloadlib', label='Reload catalog')
+pv.appendStr('Nowplaying', label='Now playing')
+c.par.Nowplaying.readOnly = True
+fl('Videoxfade', 'A/B fade (automatic)', 0.0, page=pv)
+
+# Effects page: post-processing over the whole picture, all off at 0
+pf = c.appendCustomPage('FX')
+fl('Bloom', 'Bloom', 0.0, page=pf)
+fl('Rgbsplit', 'RGB split', 0.0, page=pf)
+fl('Scanlines', 'Scanlines', 0.0, page=pf)
+fl('Pixelate', 'Pixelate', 0.0, page=pf)
+menu(pf, 'Mirror', 'Mirror', ['off', 'lr', 'tb', 'quad'], ['Off', 'Left / right', 'Top / bottom', 'Quad'])
+pf.appendInt('Kaleido', label='Kaleido segments (0 off)')
+c.par.Kaleido.normMax = 12
+c.par.Kaleido.min = 0
+c.par.Kaleido.clampMin = True
+c.par.Kaleido.default = 0
+fl('Posterize', 'Posterize', 0.0, page=pf)
+fl('Pulse', 'Beat pulse', 0.0, page=pf)
+fl('Bpm', 'BPM', 124.0, 60.0, 180.0, page=pf)
+fl('Invert', 'Invert', 0.0, page=pf)
+fl('Huerotate', 'Hue rotate', 0.0, page=pf)
+fl('Vignette', 'Vignette', 0.3, page=pf)
+fl('Grain', 'Grain', 0.0, page=pf)
+
 pc = c.appendCustomPage('Camera')
-src = pc.appendMenu('Source', label='Source')[0]
-src.menuNames = ['kinect', 'webcam', 'demo']
-src.menuLabels = ['Kinect', 'Webcam', 'Demo dancers']
-c.par.Source = 'webcam'
-pc.appendToggle('Mirror', label='Mirror')
-c.par.Mirror = True
+menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo'], ['Kinect', 'Webcam', 'Demo dancers'], 'webcam')
+pc.appendToggle('Flip', label='Mirror camera')
+c.par.Flip = True
 pc.appendPulse('Calibrate', label='Capture empty room (C)')
 pc.appendPulse('Clearbg', label='Clear room capture (X)')
 pc.appendToggle('Usebg', label='Use room capture')
@@ -199,6 +276,18 @@ fl('Far', 'Far', 10.0, 0.0, 10.0, page=pc)
 c.par.Far = 10.0
 pc.appendToggle('Debug', label='Show body mask (D)')
 pc.appendPulse('Fullscreen', label='Output window (F)')
+
+# Put back what you had before the rebuild
+for name, val in saved.items():
+    p = getattr(c.par, name, None)
+    if p is not None and not p.readOnly:
+        try:
+            p.val = val
+        except Exception:
+            pass
+if 'Mirror' in saved and isinstance(saved['Mirror'], (bool, int)) and 'Flip' not in saved:
+    c.par.Flip = bool(saved['Mirror'])                # the camera mirror toggle used to be called Mirror
+    c.par.Mirror = 'off'
 
 # Smoothed copies of the sliders, so preset changes and MIDI glide instead of jump
 ctrl_raw = jam.create(parameterCHOP, 'ctrl_raw')
@@ -224,6 +313,14 @@ def S(name):
     return "op('ctrl')['{}']".format(name) if have_ctrl else "op('controls').par.{}".format(name)
 
 
+def P(name):
+    return "op('controls').par.{}".format(name)
+
+
+def M(name):
+    return "op('controls').par.{}.menuIndex".format(name)
+
+
 # ---- Sources
 k = jam.create(kinectTOP, 'src_kinect')
 setmenu(k, 'hwversion', 'version2', 'Kinect 2', '2')
@@ -232,6 +329,8 @@ place(k, 0, 0)
 
 cam = jam.create(videodeviceinTOP, 'src_webcam')
 place(cam, 0, 1)
+if saved_device:
+    setpar(cam, 'device', saved_device)
 
 demo = glsl(jam, 'src_demo', 'demo_people.glsl', 0, 2, PRES_W, PRES_H)
 set_uniforms(demo, [('uTime', ['absTime.seconds', 0, 0, 0])])
@@ -240,7 +339,7 @@ jam.op('src_demo_pixel').nodeY = -3 * 150 - 200
 
 srcsw = jam.create(switchTOP, 'src_switch')
 connect(srcsw, k, cam, demo)
-setexpr(srcsw, 'index', "op('controls').par.Source.menuIndex")
+setexpr(srcsw, 'index', M('Source'))
 place(srcsw, 1, 1)
 
 bg = jam.create(cacheTOP, 'bg')
@@ -254,9 +353,8 @@ place(bg, 2, 2)
 pres = glsl(jam, 'presence', 'presence.glsl', 3, 1, PRES_W, PRES_H, float_fmt=True)
 connect(pres, srcsw, bg)
 set_uniforms(pres, [
-    ('uDepth', ["op('controls').par.Near", "op('controls').par.Far",
-                "op('controls').par.Source.menuIndex", "op('controls').par.Mirror"]),
-    ('uBg', ["op('controls').par.Usebg", "op('controls').par.Sensitivity", 0, 0]),
+    ('uDepth', [P('Near'), P('Far'), M('Source'), P('Flip')]),
+    ('uBg', [P('Usebg'), P('Sensitivity'), 0, 0]),
 ])
 blur = jam.create(blurTOP, 'presence_blur')
 connect(blur, pres)
@@ -272,7 +370,7 @@ setmenu(blank, 'format', 'rgba16float', '16-bit float (RGBA)', '16float')
 for ch in ('colorr', 'colorg', 'colorb'):
     setpar(blank, ch, 0)
 setpar(blank, 'alpha', 1)
-place(blank, 4, 3)
+place(blank, 4, 4)
 
 look_uniforms = [
     ('uTime', ['absTime.seconds', 0, 0, 0]),
@@ -281,11 +379,12 @@ look_uniforms = [
     ('uC', [S('Spin'), 0, 0, 0]),
 ]
 looks = []
-for i, f in enumerate(['look1_neon_ghosts.glsl', 'look2_liquid.glsl', 'look3_kaleido_tunnel.glsl']):
+for i, (_, _, f) in enumerate(LOOKS):
+    y = i * 1.6 - 4
     fb = jam.create(feedbackTOP, 'fb{}'.format(i + 1))
     connect(fb, blank)
-    place(fb, 5, i * 2 - 1)
-    g = glsl(jam, 'look{}'.format(i + 1), f, 6, i * 2 - 1, OUT_W, OUT_H, float_fmt=True)
+    place(fb, 5, y)
+    g = glsl(jam, 'look{}'.format(i + 1), f, 6, y, OUT_W, OUT_H, float_fmt=True)
     connect(g, blur, fb)
     setpar(fb, 'top', g.name)
     set_uniforms(g, look_uniforms)
@@ -296,33 +395,62 @@ for i, f in enumerate(['look1_neon_ghosts.glsl', 'look2_liquid.glsl', 'look3_kal
 looksw = jam.create(switchTOP, 'look_switch')
 connect(looksw, *looks)
 setpar(looksw, 'blend', True)                        # crossfade between looks
-setexpr(looksw, 'index', S('Look') if have_ctrl else "op('controls').par.Look.menuIndex")
+setexpr(looksw, 'index', S('Look') if have_ctrl else M('Look'))
 place(looksw, 7, 1)
 
-viewsw = jam.create(switchTOP, 'view_switch')
-connect(viewsw, looksw, blur)
-setexpr(viewsw, 'index', "op('controls').par.Debug")
-place(viewsw, 8, 1)
+# ---- Video library: two decks that crossfade, driven by engine.py
+decks = []
+for i, name in enumerate(('vid_a', 'vid_b')):
+    d = jam.create(moviefileinTOP, name)
+    setpar(d, 'play', True)
+    setmenu(d, 'extendright', 'loop', 'Loop')
+    place(d, 7, 3 + i)
+    decks.append(d)
 
-final = glsl(jam, 'final', 'master.glsl', 9, 1, OUT_W, OUT_H)
+comp = glsl(jam, 'composite', 'composite.glsl', 8, 1, OUT_W, OUT_H)
+connect(comp, looksw, blur, decks[0], decks[1])
+set_uniforms(comp, [
+    ('uTime', ['absTime.seconds', 0, 0, 0]),
+    ('uVid', [S('Videomix'), P('Videoxfade'), M('Videoblend'), S('React')]),
+    ('uVid2', [S('Videohue'), S('Videosat'), S('Lookmix'), 0]),
+])
+
+post = glsl(jam, 'post', 'post.glsl', 9, 1, OUT_W, OUT_H)
+connect(post, comp)
+set_uniforms(post, [
+    ('uTime', ['absTime.seconds', 0, 0, 0]),
+    ('uFx1', [S('Bloom'), S('Rgbsplit'), S('Scanlines'), S('Pixelate')]),
+    ('uFx2', [M('Mirror'), S('Posterize'), S('Pulse'), S('Invert')]),
+    ('uFx3', [S('Vignette'), S('Grain'), P('Kaleido'), S('Huerotate')]),
+    ('uFx4', [P('Bpm'), 0, 0, 0]),
+])
+
+viewsw = jam.create(switchTOP, 'view_switch')
+connect(viewsw, post, blur)
+setexpr(viewsw, 'index', P('Debug'))
+place(viewsw, 10, 1)
+
+final = glsl(jam, 'final', 'master.glsl', 11, 1, OUT_W, OUT_H)
 connect(final, viewsw)
 set_uniforms(final, [('uMaster', [S('Master'), 0, 0, 0])])
 
 out = jam.create(nullTOP, 'out')
 connect(out, final)
-place(out, 10, 1)
+place(out, 12, 1)
 out.viewer = True
 
 win = jam.create(windowCOMP, 'window1')
 setpar(win, 'winop', out.path)
 setpar(win, 'borders', False)
-place(win, 10, -1)
+place(win, 12, -1)
 
-# ---- Logic: engine, slider buttons, keyboard
+# ---- Logic: engine, slider buttons, keyboard, per-frame video playlist
 eng = jam.create(textDAT, 'engine')
 code = open(ROOT + '/engine.py').read()
 code = code.replace("JAM = '/project1/jam'", "JAM = {!r}".format(jam.path))
 code = code.replace("PRESETS = ''", "PRESETS = {!r}".format(PRESETS))
+code = code.replace("LIBDIR = ''", "LIBDIR = {!r}".format(LIBDIR))
+code = code.replace("VIDEOS = ''", "VIDEOS = {!r}".format(VIDEOS))
 eng.text = code
 place(eng, 0, -4)
 
@@ -335,7 +463,7 @@ pe.text = "def onPulse(par):\n    op('engine').module.on_pulse(par.name)\n    re
 place(pe, 1, -4)
 
 kb = jam.create(keyboardinCHOP, 'keys')
-setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f')
+setpar(kb, 'keys', '1 2 3 4 5 6 7 8 9 r c x d b f l v m')
 place(kb, 2, -4)
 ke = jam.create(chopexecuteDAT, 'keys_exec')
 setpar(ke, 'chop', kb.name)
@@ -346,6 +474,14 @@ ke.text = ("def onOffToOn(channel, sampleIndex, val, prev):\n"
            "    op('engine').module.on_key(channel.name)\n"
            "    return\n")
 place(ke, 3, -4)
+
+fe = jam.create(executeDAT, 'frame_exec')
+for p in ('start', 'create', 'exit', 'frameend', 'playstatechange', 'devicechange'):
+    if getattr(fe.par, p, None) is not None:
+        setpar(fe, p, False)
+setpar(fe, 'framestart', True)
+fe.text = "def onFrameStart(frame):\n    op('engine').module.on_frame()\n    return\n"
+place(fe, 4, -4)
 
 # Show the output inside the jam container and open the slider panel
 jam.par.w, jam.par.h = OUT_W // 2, OUT_H // 2
@@ -360,7 +496,7 @@ def _report():
     bad = []
     for o in jam.children:
         e = o.errors()
-        if e and o.name not in ('src_kinect', 'src_webcam'):
+        if e and o.name not in ('src_kinect', 'src_webcam', 'vid_a', 'vid_b'):
             bad.append('{}: {}'.format(o.name, e))
     for m in problems:
         log('setup note: ' + m)
@@ -374,6 +510,7 @@ def _report():
         e = jam.op(name).errors()
         if e:
             log('{} says: {} (fine if that device is not plugged in yet)'.format(name, e))
+    log(jam.op('engine').module.library_summary())
 
 
 run("args[0]()", _report, delayFrames=30)

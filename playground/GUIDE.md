@@ -85,7 +85,10 @@ src_kinect make sure *Hardware Version* is Kinect 2 and *Image* is Depth.
 
 | Key | What it does |
 |---|---|
-| 1 to 6 | presets (Neon ghosts, Neon smoke, Liquid ember, Liquid lagoon, Kaleido tunnel, Mandala rush) |
+| 1 to 9 | presets (Neon ghosts, Neon smoke, Liquid ember, Liquid lagoon, Kaleido tunnel, Mandala rush, Chroma echo, Embers, Crystal) |
+| L | next look |
+| V | next video clip |
+| M | next video blend mode |
 | R | randomize everything |
 | B | blackout on/off (trails keep running underneath) |
 | F | open/close the output window |
@@ -102,11 +105,39 @@ Glow, Shape, Zoom, Spin, Master. They glide smoothly to new values, so preset
 changes crossfade instead of jumping. Shape means something different per look:
 trail colour drift (neon), swirl size (liquid), number of mirror segments (kaleido).
 
-**Saving your own looks:** tweak the sliders, set **Preset slot** (1 to 9), press
-**Save preset**. It writes to `presets/looks.json`, so slots 7 to 9 are free for
-your own.
+**Saving your own looks:** tweak the sliders, set **Preset slot**, press
+**Save preset**. It writes to `presets/looks.json`. Slots 10 to 14 hold more
+starters (Thermal, Glitch, and three video combos); 15 and up are free.
 
 **Projector:** select **window1**, set *Monitor* to the projector, then press F.
+
+## Step 5: videos and effects
+
+**Adding videos:** drop clips into `!JamPacked/Videos/originals`, then ask Claude
+to scan them (or run `python library/tools/scan.py` if you have Python and
+ffmpeg). Each clip gets an entry in `library/catalog.yaml` with its orientation,
+length, a guessed energy (1 to 5), pace, brightness, colours and tags. Edit any of
+those by hand; the scanner never overwrites your changes. Press **Reload catalog**
+on the Video page to pick up changes.
+
+**Video page:** the player picks random clips that match your filters (energy
+range, orientation, where it's playing, tags) and crossfades every few seconds.
+Blend modes (**M** cycles them):
+
+| Mode | What it does |
+|---|---|
+| Screen | the camera look glows over the video |
+| Reveal | the video only shows inside people's silhouettes |
+| Cutout | people cut holes in the video |
+| Warp | people bend and push the video around |
+| Paint | the look's colours paint the video |
+
+**FX page:** bloom, RGB split, scanlines, pixelate, mirror, kaleidoscope,
+posterize, beat pulse (set the BPM), invert, hue rotate, vignette and grain. All
+off at 0, and presets switch off any effect they don't use.
+
+**8 looks:** Neon ghosts, Liquid, Kaleido tunnel, Chroma echo, Embers, Thermal,
+Crystal, Glitch. **L** cycles through them.
 
 ## Tomorrow: setup tips
 

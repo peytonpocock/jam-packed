@@ -1,8 +1,16 @@
 {
-  "1": {"name": "Neon ghosts",    "Look": 0, "Intensity": 0.7,  "Hue": 0.55, "Huespeed": 0.15, "Trail": 0.8,  "Warp": 0.4, "Glow": 0.3, "Shape": 0.2,  "Zoom": 0.25, "Spin": 0.05},
-  "2": {"name": "Neon smoke",     "Look": 0, "Intensity": 0.55, "Hue": 0.85, "Huespeed": 0.4,  "Trail": 0.9,  "Warp": 0.9, "Glow": 0.4, "Shape": 0.6,  "Zoom": 0.6,  "Spin": 0.2},
-  "3": {"name": "Liquid ember",   "Look": 1, "Intensity": 0.4,  "Hue": 0.5,  "Huespeed": 0.1,  "Trail": 0.5,  "Warp": 0.5, "Glow": 0.4, "Shape": 0.35, "Zoom": 0.1,  "Spin": 0.05},
-  "4": {"name": "Liquid lagoon",  "Look": 1, "Intensity": 0.6,  "Hue": 0.08, "Huespeed": 0.05, "Trail": 0.7,  "Warp": 0.9, "Glow": 0.6, "Shape": 0.2,  "Zoom": 0.2,  "Spin": -0.1},
-  "5": {"name": "Kaleido tunnel", "Look": 2, "Intensity": 0.6,  "Hue": 0.7,  "Huespeed": 0.3,  "Trail": 0.85, "Warp": 0.3, "Glow": 0.4, "Shape": 0.5,  "Zoom": 0.5,  "Spin": 0.3},
-  "6": {"name": "Mandala rush",   "Look": 2, "Intensity": 0.9,  "Hue": 0.1,  "Huespeed": 0.8,  "Trail": 0.6,  "Warp": 0.2, "Glow": 0.6, "Shape": 0.9,  "Zoom": 0.7,  "Spin": -0.5}
+  "1": {"name": "Neon ghosts", "Look": 0, "Intensity": 0.7, "Hue": 0.55, "Huespeed": 0.15, "Trail": 0.8, "Warp": 0.4, "Glow": 0.3, "Shape": 0.2, "Zoom": 0.25, "Spin": 0.05},
+  "2": {"name": "Neon smoke", "Look": 0, "Intensity": 0.55, "Hue": 0.85, "Huespeed": 0.4, "Trail": 0.9, "Warp": 0.9, "Glow": 0.4, "Shape": 0.6, "Zoom": 0.6, "Spin": 0.2},
+  "3": {"name": "Liquid ember", "Look": 1, "Intensity": 0.4, "Hue": 0.5, "Huespeed": 0.1, "Trail": 0.5, "Warp": 0.5, "Glow": 0.4, "Shape": 0.35, "Zoom": 0.1, "Spin": 0.05},
+  "4": {"name": "Liquid lagoon", "Look": 1, "Intensity": 0.6, "Hue": 0.08, "Huespeed": 0.05, "Trail": 0.7, "Warp": 0.9, "Glow": 0.6, "Shape": 0.2, "Zoom": 0.2, "Spin": -0.1},
+  "5": {"name": "Kaleido tunnel", "Look": 2, "Intensity": 0.6, "Hue": 0.7, "Huespeed": 0.3, "Trail": 0.85, "Warp": 0.3, "Glow": 0.4, "Shape": 0.5, "Zoom": 0.5, "Spin": 0.3},
+  "6": {"name": "Mandala rush", "Look": 2, "Intensity": 0.9, "Hue": 0.1, "Huespeed": 0.8, "Trail": 0.6, "Warp": 0.2, "Glow": 0.6, "Shape": 0.9, "Zoom": 0.7, "Spin": -0.5},
+  "7": {"name": "Chroma echo", "Look": 3, "Intensity": 0.7, "Hue": 0.6, "Huespeed": 0.3, "Trail": 0.9, "Warp": 0.5, "Glow": 0.4, "Shape": 0.5, "Zoom": 0.2, "Spin": 0.0},
+  "8": {"name": "Embers", "Look": 4, "Intensity": 0.6, "Hue": 0.05, "Huespeed": 0.05, "Trail": 0.85, "Warp": 0.6, "Glow": 0.4, "Shape": 0.4, "Zoom": 0.3, "Spin": 0.0, "Bloom": 0.5},
+  "9": {"name": "Crystal", "Look": 6, "Intensity": 0.5, "Hue": 0.6, "Huespeed": 0.15, "Trail": 0.4, "Warp": 0.5, "Glow": 0.4, "Shape": 0.4, "Zoom": 0.2, "Spin": 0.05},
+  "10": {"name": "Thermal", "Look": 5, "Intensity": 0.7, "Hue": 0.55, "Huespeed": 0.0, "Trail": 0.85, "Warp": 0.3, "Glow": 0.5, "Shape": 0.3, "Zoom": 0.2, "Spin": 0.0, "Scanlines": 0.3},
+  "11": {"name": "Glitch", "Look": 7, "Intensity": 0.6, "Hue": 0.8, "Huespeed": 0.2, "Trail": 0.6, "Warp": 0.6, "Glow": 0.5, "Shape": 0.5, "Zoom": 0.2, "Spin": 0.0, "Rgbsplit": 0.4},
+  "12": {"name": "Club backdrop", "Look": 0, "Intensity": 0.7, "Hue": 0.55, "Huespeed": 0.2, "Trail": 0.85, "Warp": 0.5, "Glow": 0.4, "Shape": 0.3, "Zoom": 0.3, "Spin": 0.05, "Videoblend": 0, "Videomix": 0.85, "Lookmix": 1.0, "Bloom": 0.4, "Vignette": 0.4},
+  "13": {"name": "Body window", "Look": 1, "Intensity": 0.5, "Hue": 0.3, "Huespeed": 0.1, "Trail": 0.6, "Warp": 0.5, "Glow": 0.5, "Shape": 0.3, "Zoom": 0.1, "Spin": 0.0, "Videoblend": 1, "Videomix": 1.0, "Lookmix": 0.8},
+  "14": {"name": "Mirror paint", "Look": 2, "Intensity": 0.6, "Hue": 0.7, "Huespeed": 0.3, "Trail": 0.8, "Warp": 0.3, "Glow": 0.4, "Shape": 0.5, "Zoom": 0.4, "Spin": 0.2, "Videoblend": 4, "Videomix": 0.9, "Lookmix": 1.0, "Mirror": 1, "Bloom": 0.3}
 }

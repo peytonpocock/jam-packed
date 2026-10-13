@@ -1,0 +1,11 @@
+# Jam Packed video catalog
+#
+# One entry per clip in Videos/. Run library/tools/scan.py (or ask Claude) to add
+# new clips; it fills in what it can and never overwrites what you've changed.
+#
+#   energy      1 (chill) to 5 (peak)
+#   pace        slow / medium / fast
+#   brightness  dark / medium / bright
+#   use         where it may play: backdrop, totem
+#   enabled     false hides a clip without deleting its entry
+#   tagged_by   auto = guessed by the scanner, edit freely and change to "you"
