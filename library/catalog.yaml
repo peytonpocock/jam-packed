@@ -9,3 +9,1267 @@
 #   use         where it may play: backdrop, totem
 #   enabled     false hides a clip without deleting its entry
 #   tagged_by   auto = guessed by the scanner, edit freely and change to "you"
+
+- id: 061c36a6-828e-426f-900a-6fc421be7cf5
+  file: originals/061c36a6-828e-426f-900a-6fc421be7cf5.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 16.07
+  resolution: 960x720
+  fps: 30
+  energy: 4
+  pace: medium
+  brightness: medium
+  colors: [green, blue]
+  tags: [retro-game, ps1, fighting]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: 13f246e7-7454-4d50-a6cc-a790a497f066
+  file: originals/13f246e7-7454-4d50-a6cc-a790a497f066.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 24.08
+  resolution: 720x900
+  fps: 12
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [orange, red]
+  tags: [face, psychedelic, mirror]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.1
+
+- id: 15ac56a2-0a63-41ba-aaaa-b7ba5d8520de
+  file: originals/15ac56a2-0a63-41ba-aaaa-b7ba5d8520de.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 11.17
+  resolution: 960x720
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: medium
+  colors: [red, orange]
+  tags: [retro-game, ps1, logo, intro]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: 189eded9-0472-4fbd-9bc2-51b4d2c4a29b
+  file: originals/189eded9-0472-4fbd-9bc2-51b4d2c4a29b.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 17.46
+  resolution: 1276x720
+  fps: 24
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [red, blue, orange]
+  tags: [people, city, night, music-video]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: 1d5ab32b-63fa-47b4-a1a4-bcc9a133dc48
+  file: originals/1d5ab32b-63fa-47b4-a1a4-bcc9a133dc48.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 27.09
+  resolution: 960x720
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [blue, cyan]
+  tags: [retro-game, ps1, racing]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: 38aea172-d146-4a57-bd3b-3d2b7a0e1f52
+  file: originals/38aea172-d146-4a57-bd3b-3d2b7a0e1f52.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 60.14
+  resolution: 900x720
+  fps: 24
+  energy: 3
+  pace: medium
+  brightness: dark
+  colors: [cyan, green, blue]
+  tags: [people, dancing, psychedelic, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: 3e2f417b-8152-4ac4-8022-9626de0c6652
+  file: originals/3e2f417b-8152-4ac4-8022-9626de0c6652.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 17.57
+  resolution: 636x358
+  fps: 24
+  energy: 3
+  pace: slow
+  brightness: dark
+  colors: [blue, purple]
+  tags: [abstract, texture, dark]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: 423d4328-dbb8-4269-84b8-f987339e23a7
+  file: originals/423d4328-dbb8-4269-84b8-f987339e23a7.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 36.76
+  resolution: 720x900
+  fps: 12
+  energy: 1
+  pace: slow
+  brightness: dark
+  colors: [monochrome]
+  tags: [mocap, body, minimal, dark]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.01
+
+- id: 4b9b5266-b57f-48c0-ba95-5aa7af0d6bae
+  file: originals/4b9b5266-b57f-48c0-ba95-5aa7af0d6bae.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 24.63
+  resolution: 720x540
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: bright
+  colors: [orange, green, yellow]
+  tags: [people, face, psychedelic, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.11
+
+- id: 4bede319-a23c-4953-876b-053c7b406ac3
+  file: originals/4bede319-a23c-4953-876b-053c7b406ac3.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 10.07
+  resolution: 720x900
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: bright
+  colors: [red, orange]
+  tags: [object, food, surreal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: 5927cf1c-68aa-4a9b-a6cc-73431e6c396d
+  file: originals/5927cf1c-68aa-4a9b-a6cc-73431e6c396d.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 60.14
+  resolution: 1276x718
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: medium
+  colors: [green, magenta]
+  tags: [glitch, collage, datamosh]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.16
+
+- id: 5c75dd34-6032-420d-ab5d-2504dd1e4c1b
+  file: originals/5c75dd34-6032-420d-ab5d-2504dd1e4c1b.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 41.84
+  resolution: 960x720
+  fps: 18
+  energy: 2
+  pace: medium
+  brightness: medium
+  colors: [blue]
+  tags: [film, nature, snow, lo-fi]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: 6e2bb720-c43a-46a5-85d3-4bb0d65d60b9
+  file: originals/6e2bb720-c43a-46a5-85d3-4bb0d65d60b9.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 15.05
+  resolution: 1276x720
+  fps: 19
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [blue, magenta, orange]
+  tags: [concert, lights, crowd]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: 7706bb50-af90-43e5-bad4-96a1c80392bc
+  file: originals/7706bb50-af90-43e5-bad4-96a1c80392bc.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 60.14
+  resolution: 960x720
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: dark
+  colors: [blue]
+  tags: [retro-game, ps1, racing, futuristic]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: 7d72b336-101e-4b4e-990d-0139989477ba
+  file: originals/7d72b336-101e-4b4e-990d-0139989477ba.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 60.09
+  resolution: 720x900
+  fps: 12
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [red, blue]
+  tags: [face, eyes, ui, retro-computer]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: 907055ae-59df-42dd-92e5-15b61978eec9
+  file: originals/907055ae-59df-42dd-92e5-15b61978eec9.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 18.67
+  resolution: 960x720
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: medium
+  colors: [red, blue, orange]
+  tags: [retro-game, ps1, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.13
+
+- id: 98980062-61af-4825-a357-e038dc2281c0
+  file: originals/98980062-61af-4825-a357-e038dc2281c0.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 23.87
+  resolution: 636x358
+  fps: 30
+  energy: 4
+  pace: medium
+  brightness: medium
+  colors: [magenta, blue]
+  tags: [3d, face, abstract, minimal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: 9e9ec541-20ba-41ea-8891-9b256f45ff66
+  file: originals/9e9ec541-20ba-41ea-8891-9b256f45ff66.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 25.66
+  resolution: 960x720
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: bright
+  colors: [red, blue]
+  tags: [retro-game, ps1, glitch, collage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.12
+
+- id: aqmazga4mdwzdkxjwtac8q8hmvpufdebyeiqgjvaaykaoptawg-7rizp5iwf1symqsjb2ilvqfwxkg-seae1dkrwhvrjkw1x5r5jxhc
+  file: originals/AQMAzga4mDWZdkXjwTAC8q8hMvpuFdEbYEiQgJvaAYKAoPTawG_7rIzP5IWF1sYMqsjb2iLVQFwXkG-Seae1dkrWHVrJKw1x5R5jxhc.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 14.53
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: dark
+  colors: [monochrome]
+  tags: [body, running, glitch, pixel]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: aqmmika1kvjqt8cfcr97svsifsuukarc4byjzoec493hpshntcibb-sbhajmfvoqcysqimmujzpqery6hky6n2g0p960-79psytxm
+  file: originals/AQMMika1KVjqt8CFCR97SVsiFsUUKarc4byJZOec493HpSHntcibb_sBhaJmFVoQCysQiMMUJzPQery6hky6n2g0P960-__79PSYtXM.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 16.34
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: medium
+  colors: [monochrome]
+  tags: [3d, grid, body, running, letterboxed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: aqmttqhms65iideojb68vxr-gfzgh8qwgml9t-0jaxnpffyjpujx2-hnxyzba6svxdf4f8fw6erdk8jitnpce69twui-0mz33i-iwo4
+  file: originals/AQMTTQHms65IIDeOjB68VXR_GfZgH8QwGml9T_0JAxNPfFYjpUjx2-HnXYZba6SvXdf4f8Fw6erdk8JItnPce69TwUI_0mZ33I_iWO4.mp4
+  enabled: true
+  orientation: square
+  duration_s: 14.84
+  resolution: 720x720
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [cyan, blue]
+  tags: [retro-game, cartoon, simpsons]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqmvrya43aqz68casyj3cmpcw6buaayihzezmvweovjeyyzjzxgyv03zbh6adbbqxzayk4-dbhfbvvvmjzxtytzrqxcmeoboxh-vtq8
+  file: originals/AQMVryA43AqZ68casyj3cmpcw6BuaaYihZezMvwEOVjeyYzjzXgyV03zBh6aDBbqXZAyk4_dbhfbVvvMJzXtYtZRqxCmeOboxH-vTq8.mp4
+  enabled: true
+  orientation: square
+  duration_s: 14.12
+  resolution: 720x720
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [blue, red, orange]
+  tags: [retro-game, cartoon, simpsons]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: aqmysu-7wg0ewttvryjcrfwfmqmlzvomhfcrhkjjgbsyuf0gn1gioxeouipgnkhit08gk9o-vvirtbt8evat6naw4-qfuyh5j-9t95i
+  file: originals/AQMYsU-7WG0ewtTVryjcRfWfmqMLZVoMHfcRHkjjgbSyuF0gN1gIOxeoUipgNKhiT08gK9O-VvIrTBt8evAt6nAW4_qfUyH5J_9t95I.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 10.96
+  resolution: 1280x720
+  fps: 25
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [cyan, blue]
+  tags: [texture, glitch, object]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqm-kgmzg5x9tjoq8eaabd9x1fclaj8g3tvy1yodhkw2ahabinxlus85jej-lymlsazbj82xs7hedr-hmfkpfll1ty9hm56cq1nlbw8
+  file: originals/AQM_kgmzg5X9tjOq8eaabD9x1FCLaJ8g3Tvy1yoDHkW2aHaBiNxLUs85jEj-LYmLsAzBj82xS7hEdr_hMFkPFLL1tY9hm56CQ1NlbW8.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 60.14
+  resolution: 720x900
+  fps: 12
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [orange]
+  tags: [people, dancing, pattern, retro]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: aqmj2nubdyr0jzl9nssyoc7rsslazi-cyktms449iuumofj0r5k0frngq5tf39qm-c9f8-bo-e8bgemlatcpyjutjfgfhpaazcluwss
+  file: originals/AQMj2nUBdYr0jzl9nSSYOC7rSsLazi_CYKtms449iUUmOFJ0R5k0FrngQ5tF39qm_C9f8_Bo_e8bGeMlAtcpYjUTJFgfhPaAzcLuwss.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 30.56
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [cyan, blue, green]
+  tags: [glitch, y2k, desktop, retro-computer]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqmrg210-gushtr29oefbi7dwdfpxvtxbprhpyym2mlewtec33ju3-ewuy1ri3a5ercoxl1uypwzkm2evosts97w
+  file: originals/AQMrG210_GUshTR29oEfbi7dWDFPxvTxBPrhpyYm2mLEWTec33ju3_Ewuy1ri3a5ERcOXl1UYPWZkM2Evosts97w.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 8.06
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: dark
+  colors: [cyan]
+  tags: [pixel, animal, horse, running, letterboxed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqmyofcdpq-ruwxhqgmyh7pshvlgbgrlmderqq8-tw3stn-ptibjv0tfuqfyxewyvgkoedo8cucqt7na4ig1hlc
+  file: originals/AQMyofcdPQ-rUwxhQgMYH7pshVLGbgRlMDerQq8_tW3StN_PtIBJv0tfuqFyxeWyVGKoedO8cucqT7NA4IG1hLc_.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 12.89
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: slow
+  brightness: bright
+  colors: [cyan]
+  tags: [3d, object, retro-computer, minimal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqn7nbegxqr7tglb-wzrjoth9yuxq31ud0msehjhdlbu3fqnnypnq8ma9i3djw2ipylwjxea982dokq8fdbefsbx7tewrrpiacojwjc
+  file: originals/AQN7NBEgXqR7tGlB_WZrJotH9yuXQ31Ud0mseHjHDlbu3fqnNyPNQ8Ma9i3djw2IPYlwJXEA982DoKq8FdbEfSbX7tEWrRpiACojwjc.mp4
+  enabled: true
+  orientation: square
+  duration_s: 14.77
+  resolution: 720x720
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [cyan, red]
+  tags: [retro-game, cartoon, simpsons]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqnezzytrsdr2tavtmcnvnhuof0t-t42hgimx19ilysnjnnn9rgihveqxupf68ouvfjouxwkwrhd4znskcbpgxrz0asck8p58ja6wx0
+  file: originals/AQNEZZyTRSDr2tAvtMCNVnHUoF0t-t42hGImX19ILYSnJNnN9RgIHvEqxupF68oUVFJouxwkwrhd4znskcbPgXRZ0ASCK8p58Ja6Wx0.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 52.36
+  resolution: 1276x718
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [blue, orange]
+  tags: [retro-game, cartoon, simpsons]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqni28wiyue36da1epjn4mfq4n7btgxbyzucrszhklubpy8qv7yzzkyvvchwamhzwa5cxozskiqbm2xdplqwhvlvvpxy89vpocuycpm
+  file: originals/AQNI28wIyuE36DA1EpjN4Mfq4n7bTGXbyZUCrSZHklUBpY8qV7yZzkyvvChwAMHZwa5cXOZSkIqBM2xDpLqwHVLVVPXy89VpocuYCpM.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 20.08
+  resolution: 720x900
+  fps: 25
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [magenta, orange]
+  tags: [3d, abstract, psychedelic]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqnogliaee0fnmsb8g7j-titsai-irqamn9knozmu9zvokeyrthgcfhbagrgy2an-4p1duymfahvee33t8ga-jt-nhq-wu0vfpm5hmg
+  file: originals/AQNOgLiAeE0FNMsb8G7j-tiTSai_IrQaMN9kNoZmu9zVoKeYrtHgcfhBAgrGY2an-4P1dUyMfAHveE33T8gA_jt_NHQ_wu0vfpM5hmg.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 20.52
+  resolution: 1276x718
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [magenta, red, blue]
+  tags: [people, dancing, silhouettes, crowd]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqnoun6hz4r6ad8vax0xoca2nebpn1iimbv1weqt9kcougqhek74p-rtocj7opwlc2dqqrwmolkba02kkghpuzu0qaulehxpc7lza5w
+  file: originals/AQNOun6hZ4r6ad8Vax0xOCa2Nebpn1IIMBv1wEqt9kCOUgqHek74p_rTOcj7OpwlC2dQqrWMOLKbA02kkGHpuZU0QAULehxPc7lzA5w.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 21.22
+  resolution: 720x900
+  fps: 25
+  energy: 2
+  pace: fast
+  brightness: dark
+  colors: [monochrome]
+  tags: [object, clock, dark, hypnotic]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.11
+
+- id: aqnauunnb1nrcnmrm7yxiahlw7hgbojhwpjxgeahsfqewj-u9dvowm2djxw0b35m-1-opc-eorrkrv3gu4zwykc7zgt5rpy7kqkms4g-1
+  file: originals/AQNauunNB1nrCNmRm7yXIAHLW7HgBOjhWpJxgEAHsFQEwJ-U9dvOwM2DJXw0b35m-1-OPC_eorRkRV3gu4zwYkC7Zgt5RpY7kqkMs4g (1).mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 15.09
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: dark
+  colors: [blue]
+  tags: [3d, abstract, wireframe, minimal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqnduayegy2owewfhux6z20mek8ryggpq3ubs-mpuzf-1e6uszzkspho8hfstyjql9nol4lak4dwxuep8ekdytw8yxzlkipz7vnfasw
+  file: originals/AQNduAyEGY2OweWfHuX6Z20MEK8rygGpq3UBS_MPUzf_1e6USZzkspHO8HfStyjqL9Nol4Lak4DwXUeP8eKDytW8yxZlKiPz7vnfASw.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 28.42
+  resolution: 716x794
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [blue, green]
+  tags: [3d, retro, psychedelic, speed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.11
+
+- id: aqnjw5ecfiendni0mdhvw-ijcc-ufbdhs5mio1me0kkgcl4lpnpoceil1zwn2rj-v-pblqj-rp7zjtjbsxla2zf6ofedwb1qyplaai
+  file: originals/AQNjW5ecFiEnDni0mDhVW-ijCc_uFBdhs5MiO1me0KKgCL4lpnPoCEIL1zWn2rJ-V-pBLqj-_rp7zjtjBsxla2zF6oFeDWB1qyPlAaI.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 15.67
+  resolution: 1248x718
+  fps: 12
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [blue]
+  tags: [people, glitch, thermal, walking]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqnwgbf4cvpvsqi0pk71oqn-kg-qlsmy-35x258zk81gqq7socp3ibcsym29f0diyld1mgb2ej0zj-hlxvdzlfcy
+  file: originals/AQNwgbf4cVpvsqi0pK71oQN_kg_qLSMy-35X258zk81GqQ7SOcp3ibcsym29f0diyLd1MgB2Ej0zJ_hLXvdzlFCy.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 6.57
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [red, blue]
+  tags: [3d, retro-game, ui]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqo8k3gus6gkecxawenikcdfvynhszd-meeuhhpquej9hweyposucwxljwfcpzktzapc-xt5bpeojdhk0rlucynphqmlh2sxmydugs
+  file: originals/AQO8K3gUs6GkEcxaweNiKcDfVYnHSzD--MeeuHhpquEj9HWEypOSucWxLjWFCPZktZapC-xT5BPeOjDhK0RLuCynPhqmlh2sxmYduGs.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 13.63
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [green, yellow]
+  tags: [glitch, datamosh, skull]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqofr3qsju-qycxjvom2pzqemoyme8ew3h1hlxiqbipsed-8urz4vdc8ghur4uxnw1hdropk0xzusqf8v-wkdrrxv-g0zvca1ssorxs
+  file: originals/AQOFR3QSJu-QyCXjvOM2PzqEmoyME8EW3h1HlxiQbIpsed_8urZ4vdc8gHur4UxnW1HdROpk0XzuSQf8V_wKdrrxV_G0zvCA1SsOrXs.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 8.8
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: medium
+  colors: [red]
+  tags: [pixel, body, running, retro-game]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqogyhsxf8wpulatni2uh-bk-bo9auzicdzyyzpl-uolpm67queb-akop7ilgkkwa1dnxnjq6tkgkfubzhrretahjoev0qwiyuszcne
+  file: originals/AQOGYhsxf8WPulatNi2uh_bk_Bo9aUziCDZyyZpL_UOlpm67queb-Akop7iLgkKWA1dnxNJq6TkGkfUBzHRReTAhJOEV0QwiyUszcNE.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 14.26
+  resolution: 608x1088
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [red]
+  tags: [skull, 3d, surreal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqoh8wagqaaixiqbqg64b5jtfgmjwb0hr0xi8i0d9hej7rb78tvei8n0itq-x1auzmjwn0qikg-q8se-4hi6jvok
+  file: originals/AQOH8wAGqaaIXIQbqG64b5jtFgmjwb0hr0xi8i0d9heJ7rB78tvei8n0ITQ-x1AUZMjwn0QiKG-Q8se_4hi6JVOk.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 15.44
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: medium
+  colors: [cyan, blue, green]
+  tags: [y2k, desktop, glitch, letterboxed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: aqoksxg9mtgwxgnvacyoh3vqif1s-n3sebcfr-z5ko2zo8-mt6ffuoi4kgz0txt9jk10jix6vtofiqh6pejbkydjhkyuluigmzuqpdc
+  file: originals/AQOKsXg9MTGwXGNvacyOh3VQiF1S-n3SEBCFr-Z5kO2ZO8-MT6ffUoi4KGZ0txt9JK10JiX6vToFIQh6pEJBkyDjhKYULUigMzuqpdc.mp4
+  enabled: true
+  orientation: square
+  duration_s: 52.75
+  resolution: 720x720
+  fps: 24
+  energy: 3
+  pace: medium
+  brightness: dark
+  colors: [green, orange]
+  tags: [mocap, body, 3d, green]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqomfkjipuqbak0gark89xzp0x84v9xbwxslenuln7lhvydamxhyhxn4oaic-hmd2sqjuhlxx6-n20-r6hpg4dye-1zhdmcjjsh4lhq
+  file: originals/AQOMfkJiPUQbAk0GaRK89XZP0X84V9xbwxsLEnuln7LhvYdAmXhYHXn4Oaic-Hmd2sqjuhlXX6-n20-R6hPg4DYE_1ZhDMCjJSh4lHQ.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 19.55
+  resolution: 1276x720
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: medium
+  colors: [orange, red]
+  tags: [cartoon, psychedelic, collage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.14
+
+- id: aqonqr7dccqedmg41asd5nvibqaj-7wnarzotmhwidyia9ilvwdduuysvpelokvm5kyuankjnaknzlhsjpgtng8a1jybfsuocznsule
+  file: originals/AQONQR7dCCqedMg41ASD5NVibqaj-7WnarZoTMhwIDYIA9iLVwDduuysvPelOKvM5KYUankJNAkNzLHSjpGTng8a1jYBfsUOczNsULE.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 28.63
+  resolution: 960x720
+  fps: 19
+  energy: 2
+  pace: fast
+  brightness: medium
+  colors: [blue, yellow, orange]
+  tags: [film, city, street, lo-fi]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqotjb98h4noh-paz-xnky7puy2735ap7fg0cei9b7snqkudcol-otbthbna9jjctdu-3ejmxa3j2p8dmnd9f7be
+  file: originals/AQOTJb98H4nOh_PAZ-XnKY7puy2735Ap7Fg0ceI9b7SnQKuDCOL_oTBtHbnA9jJcTdu_3eJmxA3j2p8DmND9F7bE.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 8.87
+  resolution: 720x1280
+  fps: 24
+  energy: 2
+  pace: slow
+  brightness: dark
+  colors: [red, blue, green]
+  tags: [3d, objects, minimal, dark]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqovq-tnh9g-roxv40oe2qnipdhsbrrbjldormm7o8r2tp1nu5yjkea7rjzdvdox7rfq32fuzp5aaavvtcp5jyrayxipzbmijbbzxi
+  file: originals/AQOVq-_tNH9G-Roxv40OE2QNIPDhSbRRbJlDOrmM7o8R2TP1NU5yJkea7RJZDvdoX7rFq32FuzP5aAAvvTcP5jyrAYXipZbMIjbBZxI.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 26.91
+  resolution: 720x1280
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [blue, orange, cyan]
+  tags: [glitch, y2k, desktop, collage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.11
+
+- id: aqoxccpgwerit1labuqa8pzwj-cvpjska3aspgr6aq7f4aiarwvkepugo5lplwgwn0oqvzgik6qiasrjit0rtru-dvvgtyivkuvpoue
+  file: originals/AQOXCCPgwErit1LAbuqA8pzwj_CVPJSka3aSpgR6aq7f4AiarWvkEPUgO5lplWgwn0oQVzgIk6QIaSRJIT0rtru_dVvgTyIVkuvpouE.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 57.86
+  resolution: 1080x608
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: dark
+  colors: [blue, cyan]
+  tags: [people, dancing, glitch, stage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqoxhleefjn2qqi7dtieyxa3kigqjtxd3ghh7xdmwlsqxk14hi1nqxoawa6jwxbufqbwvkhhgpz41skczkj9q1ic6zvljnq-03xkx7c
+  file: originals/AQOXHlEEFjN2QqI7dtIeyxa3kIgQjtXD3GhH7xdmwlSqxK14hi1NQXOAwa6JwxbUFqbWvkhhgPz41SkczkJ9q1IC6zVlJNq-03Xkx7c.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 39.57
+  resolution: 1276x720
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [blue, magenta, red]
+  tags: [abstract, glitch, datamosh]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: aqo-gr1v4dfacuem0wrowusjthhk9hfwoiabrbxtfjyve7syuzo3ducdvwfue9imfeags6if46mpel1s5s38twu05qqgf0snv21u1l4
+  file: originals/AQO_gr1v4DFACUem0WROWUsjthHK9hFWOIAbrBxTFjYvE7SYuZo3ducdvwFue9iMfeAGS6If46MPEL1S5S38TwU05QqgF0SNV21u1L4.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 12.88
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: medium
+  colors: [blue]
+  tags: [pixel, retro-game, racing, letterboxed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqoijyiavpsobfm-t6cm82bf3gcwbp2b-2uozydxodkowwpbskou40slnys006hdtloe9tivxwedz3qwusbfuykcpnacdgojqyyt5qu
+  file: originals/AQOijYiAvpsobfm_T6cM82Bf3gCwBp2B-2uozyDXodKOwwPbSkOU40sLNYS006hdtLoE9TIVxWeDZ3qwuSBfUYkCpnACDgojQYYT5QU.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 9.66
+  resolution: 720x1280
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: bright
+  colors: [magenta]
+  tags: [pixel, retro-game, glitch, psychedelic]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.09
+
+- id: aqomzwe3d0rv-tpo7kfrj-5mjjeea3zjhbkpqudpvm3lnyio9f-xc9xr-dv2z32-wur920myzyg1ii714noqkdaxtbsdgvbwltslk3c
+  file: originals/AQOmzwe3d0Rv_tPO7kfrJ_5mJjeea3ZjHbKPqUdpVm3LnYIo9F_xC9xr_DV2z32-WUr920MyZyg1Ii714NOqKdaxtbSdgVBwlTslK3c.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 20.83
+  resolution: 1276x720
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: bright
+  colors: [red, yellow, cyan]
+  tags: [psychedelic, collage, abstract]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.15
+
+- id: aqoq4cg661bbtnaxhexfp3fmmbjjapsf5duy9ydczlltqwahzswblitbjxfvhlop61hpmrgjrt4wxaubd-gejelg
+  file: originals/AQOq4Cg661BbtnaXhexfP3fMMbJJapSF5dUy9YDcZlLtQWAHZswBLitBJxFVHLOP61HPMrGJRt4WxauBd-GEJELG.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 16.07
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [green, cyan]
+  tags: [pixel, abstract, spiral, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqozf3uwhlr7qnd0at6zkf9a66qa3adnvbfxowrs9ejgzbetm0-gzhjrtji3fad8tnhkdaicq7w68e-ldnndaqnvyl07e1ato6pkuke
+  file: originals/AQOzF3Uwhlr7qnd0AT6ZKF9A66QA3adnVbFXOwrs9EJGZBETm0_gZhJRTJi3FAd8tNHKdaicq7W68E_ldNNdaqNvyl07E1AtO6pkUKE.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 15.26
+  resolution: 720x1280
+  fps: 30
+  energy: 4
+  pace: fast
+  brightness: medium
+  colors: [blue, cyan]
+  tags: [retro-game, 16bit, collage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: aqp-ntbdqrql1me9zh0bs1ktzzcydsa-mv8ntjxznnn1a3-qiy3xq-jefuk4qhnfvqwfnj6o8xmtyc6mn1yuxx3-kguxzqt1fx1dcgy
+  file: originals/AQP-nTbDQRqL1mE9ZH0Bs1ktZzCydSa_mv8NtJxZNnn1A3-QIY3xQ_JeFUK4qhNFvQWFNj6O8xmTYC6mn1YUxx3_kGuxZQt1fX1DCGY.mp4
+  enabled: true
+  orientation: square
+  duration_s: 36.67
+  resolution: 720x720
+  fps: 15
+  energy: 4
+  pace: fast
+  brightness: bright
+  colors: [green, blue]
+  tags: [people, silhouette, glitch, colour-shift]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqp0qxl3gl9getczjeg2yaqntj8n3-srexu0fwbs2ptghyk50surl4cuaxufywxl9rxzxcymi57b8ujbsgeq9e-jfkrq4p6-xdsmja4
+  file: originals/AQP0QXL3Gl9GetczJeG2YAqNtj8N3_SrExu0fWbs2pTGhYk50suRl4cuaXuFyWXL9RXZxcyMI57B8UjbSgeq9E_jfKrq4p6-xdsMjA4.mp4
+  enabled: true
+  orientation: square
+  duration_s: 17.62
+  resolution: 720x720
+  fps: 30
+  energy: 3
+  pace: slow
+  brightness: bright
+  colors: [blue, red]
+  tags: [3d, animal, horse, surreal, colour-shift]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.01
+
+- id: aqp0ys8uuqiwx7gbzxswpwbt0vw42cwon0zny8bocuw5pexcvya2ko7smj50-zu3om1pswvwzq6s5uh2sq7zwseiwf3t36oijaok3a0
+  file: originals/AQP0ys8UuQiwx7GBzxSWpWbt0VW42CWOn0zNY8BoCuW5pExCvYa2ko7smj50_zU3Om1PSWVwZq6S5Uh2sq7ZWsEIwF3T36Oijaok3a0.mp4
+  enabled: true
+  orientation: square
+  duration_s: 19.04
+  resolution: 744x718
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: bright
+  colors: [blue]
+  tags: [y2k, web, retro-computer]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqp2-zdfgprkdfa4eg-bqm-1f2ciopcwqdpkzumjv9sete7fw9lsyyotxm3qid-yegfw9-3qzra9wic05dsb8os65rppjurxle1yb3m
+  file: originals/AQP2-zdfgprkDFa4EG-bqm_1F2CIOPCWqDpkZumJV9SETe7fw9lSYyoTXM3QiD-yEGfw9_3qZRa9wIc05DSb8oS65rPpjuRXLe1YB3M.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 11.61
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: fast
+  brightness: bright
+  colors: [monochrome]
+  tags: [drawing, lines, minimal, monochrome]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqpcupqcpxkusxgvmwm1fx31qjh5mqmp8cvzzkd-yuexetmqvpiyi0gcv8yfwkbtg8pwgsmbkpmg2cmluei9tqyxpynphawvouj76uy
+  file: originals/AQPCUpQCpXkUSXGvMWm1fX31QJh5MQmP8cVZZKD-YuEXETmQVPIyi0gcV8YfwkBTG8PwGSMbkPMG2CmluEi9tQyxpYnpHaWVouJ76UY.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 60.04
+  resolution: 632x358
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: bright
+  colors: [blue, magenta, green]
+  tags: [glitch, collage, colour-shift]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.12
+
+- id: aqpeivwyiejuycgvr2nbmg3ouyva-wyl5qlmwbtcjbn3p0kcsevp-qk99i6iaxep0pygf1cpk7adpf7efucgtuyhgwd3lw3gucg5stm
+  file: originals/AQPEiVwyiEjuYCGVR2NbmG3OuYva_wYl5QlmWBTCjBn3P0kCSevp-QK99i6IAXep0pYGF1cpk7ADPf7EFuCGTUYHGwD3lW3GuCg5sTM.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 12.54
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [green, blue]
+  tags: [glitch, collage, psychedelic]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: aqpmpxq0fmybwqwof3pv9rjsqypupmuhx1rfgy1egem3ise2gbcnyapvef9vv4fu50j86fist-pt29gi2xiz1i4wn7o-nmumplqk-sq
+  file: originals/AQPMpxq0fMYbWQwOf3pV9RJsQYpUpMuhx1rFgy1egeM3IsE2gbCnyAPvef9Vv4fu50j86FIst-pt29GI2xiz1I4wN7O-nmUMPlQk_sQ.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 9.68
+  resolution: 1172x720
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: medium
+  colors: [green]
+  tags: [pixel, body, running, lcd, green]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0
+
+- id: aqpqur0wxpcytw72q9t7cs1x50hfzovcxwuhqrdmxoogumukiv2kzvbw3wohmh8h3saaw32auajssjql4jzkbtkjt-ioa-jkyptdmtk
+  file: originals/AQPQur0wXPCYtw72q9t7cS1X50HfZovcxWuhQrdmxoogUmUkiV2kzVbW3WohmH8H3SAaw32AuaJSSJql4jZkbtKjT_iOa-jKypTDMtk.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 13.77
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: slow
+  brightness: bright
+  colors: [blue]
+  tags: [pixel, retro-game, glitch, letterboxed]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: aqp-h8zha-fdikgrpq3w1oy6rpne0c-8b6au-pxfdducua-bubyzxr2etvgsoorxxmrzn2s-vz5sscgelxufeosgtnzvie4naw8kec
+  file: originals/AQP_h8zhA-FDIKGrpq3W1oY6rpNe0c-_8B6Au-PXfdducua-BubyZxr2ETVGsoOrxXMRZN2S-VZ5ssCgELXufEOsgTNZvIe4Naw8KEc.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 7.92
+  resolution: 1276x720
+  fps: 12
+  energy: 5
+  pace: fast
+  brightness: bright
+  colors: [blue, green]
+  tags: [abstract, pattern, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.22
+
+- id: aqpicmmd5medncsbn5arzmrfnrzvutab8sbdqwkpmrxru78lmqibpzhprlic8llphypyfdveh3rtpnqxl4pl9wperge2l2frpwgal00
+  file: originals/AQPicmmd5MedNcSBn5ARZmrfNrZVutAb8SbdQWkPmRXru78LMQIBpZhprLiC8LLPhyPyfDVeH3RtPnqxl4PL9WpErGe2l2frpwgAL00.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 16.97
+  resolution: 720x1280
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: medium
+  colors: [green, blue]
+  tags: [psychedelic, glitch, rainbow]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.12
+
+- id: aqpjvq-cyu1kjx7bnrpg5-uqsfyib-we5vs2siw0et-hlfbhmpk9uqb98v8he55zptqonrzcpsxwaaoh28p8ux-pr-jtwkbcwuxbpoy
+  file: originals/AQPjvq_cYU1KJX7BNRpG5-UqsFyib_WE5VS2SIW0et_hlfBhmPK9UQb98V8He55ZpTqoNRZcpSxwAaoh28P8UX_Pr-jTWkbcWUXBPOY.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 21.01
+  resolution: 720x766
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [green, blue, red]
+  tags: [glitch, body, circuit, neon]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: aqpnlzec-etbutva-oui2wbf0homsqzvllldn2tusb7qeuvsdmpda8otr0ld14ztwzcxmcbkm6sdxwz37ihxtdmt437dqgltnmgrr0u
+  file: originals/AQPnLzEC-eTButVa_OUi2WBf0HomsQzVllLdn2TUsb7QEuVSDmpda8oTR0Ld14ZTWzCXmcbkM6SDXwz37IHXTDMt437DQGltnmGrR0U.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 81.62
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: dark
+  colors: [green, red, blue]
+  tags: [text, meme, retro-game]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: aqpu78ehenc9h-8b9t5t8gttea5o1ea4-akg-byujl0avsiaqfj2jimhfif0d2c-t3cdhnptyfwiafmo2ojywnvw
+  file: originals/AQPu78eHEnC9H_8b9T5T8GTTeA5O1eA4-akG_bYuJL0AvSiaqfj2JIMhfif0d2c-T3cDhNPtyFWIAFMo2OjyWnVw.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 16.07
+  resolution: 720x900
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [red, blue]
+  tags: [glitch, body, circuit, neon]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.04
+
+- id: aqpvhycqg-moh7yzno-pbyqyxhkj-pzfk3rrb8kndrnaw7zfqn0oisp8sfphvi2bjokgbvxndjccuiv7pthaouqpfcviznxdjbvn26u
+  file: originals/AQPvhYcqG_MoH7Yzno-PBYqyxHKJ-PzFK3RRb8KNDrNaW7zfqn0oIsP8SfPHvi2BJOKgbVXndjccUIV7PthaoUqpfCvIZNXdJBvN26U.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 10.56
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [red, green, blue]
+  tags: [3d, hand, glitch, collage]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: aqpxsmdbvganizazfupzioj3fjcdwmwespbsvg0awhplubxccz-jw8k-wa7awexgrt3yohcweoerktrqwznkxtlbpdehi3pjdtyw-km
+  file: originals/AQPxsmdBvGAnIZAzfupzIoJ3FjCdWMWESPbSvg0aWhPlUbxCcZ-Jw8k_Wa7AwExgrt3YOHCwEoERktrQWznkxTLbPDehi3PjDTyW-KM.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 23.31
+  resolution: 720x1280
+  fps: 30
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [blue, green, yellow]
+  tags: [pixel, retro-game, landscape, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: b7d7f17d-aa7f-424e-89d0-af8e076fa15e
+  file: originals/b7d7f17d-aa7f-424e-89d0-af8e076fa15e.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 60.14
+  resolution: 960x720
+  fps: 18
+  energy: 2
+  pace: medium
+  brightness: medium
+  colors: [orange]
+  tags: [film, nature, water, lo-fi]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: be925200-82b0-4017-bbb9-fe666e0a21e6
+  file: originals/be925200-82b0-4017-bbb9-fe666e0a21e6.mp4
+  enabled: true
+  orientation: square
+  duration_s: 14.84
+  resolution: 720x720
+  fps: 25
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [cyan, red, yellow]
+  tags: [retro-game, cartoon, simpsons]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.06
+
+- id: c8089709-52c4-47e5-bec8-6678684de179
+  file: originals/c8089709-52c4-47e5-bec8-6678684de179.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 21.66
+  resolution: 1276x720
+  fps: 15
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [blue, red]
+  tags: [text, typography, 3d, sport]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: c8f1efae-130d-4b6c-83d8-789a5f95c2cb
+  file: originals/c8f1efae-130d-4b6c-83d8-789a5f95c2cb.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 18.27
+  resolution: 960x720
+  fps: 30
+  energy: 5
+  pace: fast
+  brightness: medium
+  colors: [yellow, orange]
+  tags: [retro-game, ps1, glitch, anime]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.16
+
+- id: d7032587-d715-430b-a1da-8928f45f6eb7
+  file: originals/d7032587-d715-430b-a1da-8928f45f6eb7.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 60.09
+  resolution: 720x900
+  fps: 12
+  energy: 3
+  pace: medium
+  brightness: medium
+  colors: [orange, blue, red]
+  tags: [eyes, hypnotic, clock, surreal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.07
+
+- id: ebaea5df-279c-4b24-b1ea-7603772e4810
+  file: originals/ebaea5df-279c-4b24-b1ea-7603772e4810.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 3.85
+  resolution: 1276x720
+  fps: 15
+  energy: 2
+  pace: medium
+  brightness: dark
+  colors: [monochrome]
+  tags: [3d, body, sport, typography, minimal]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: f5b88137-c3a4-403b-869b-4f8606ada984
+  file: originals/f5b88137-c3a4-403b-869b-4f8606ada984.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 6.15
+  resolution: 720x900
+  fps: 25
+  energy: 3
+  pace: slow
+  brightness: medium
+  colors: [cyan, red]
+  tags: [object, food, surreal, pattern]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
+
+- id: faf9a874-894c-4f44-9e86-310c34284cb4
+  file: originals/faf9a874-894c-4f44-9e86-310c34284cb4.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 4.67
+  resolution: 1276x720
+  fps: 15
+  energy: 3
+  pace: fast
+  brightness: medium
+  colors: [monochrome]
+  tags: [typography, 3d, sport, glitch]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.09
+
+- id: febb686b-f1d3-4411-ae29-e82d28797247
+  file: originals/febb686b-f1d3-4411-ae29-e82d28797247.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 27.91
+  resolution: 960x720
+  fps: 18
+  energy: 2
+  pace: fast
+  brightness: medium
+  colors: [orange, yellow]
+  tags: [film, travel, snow, lo-fi, subtitles]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.08
+
+- id: ff92b47c-a542-43b1-8156-167fd197934b
+  file: originals/ff92b47c-a542-43b1-8156-167fd197934b.mp4
+  enabled: true
+  orientation: horizontal
+  duration_s: 6.85
+  resolution: 1276x720
+  fps: 15
+  energy: 2
+  pace: medium
+  brightness: dark
+  colors: [red, blue]
+  tags: [typography, 3d, sport, abstract]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.05
+
+- id: perfectl00p-1784134530-3941926974956167555-54684592043
+  file: originals/perfectl00p_1784134530_3941926974956167555_54684592043.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 25.63
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: medium
+  brightness: dark
+  colors: [red, blue]
+  tags: [neon, abstract, 3d, dark]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.03
+
+- id: perfectl00p-1784648064-3946235727753889091-54684592043
+  file: originals/perfectl00p_1784648064_3946235727753889091_54684592043.mp4
+  enabled: true
+  orientation: vertical
+  duration_s: 17.13
+  resolution: 720x1280
+  fps: 30
+  energy: 2
+  pace: slow
+  brightness: bright
+  colors: [blue]
+  tags: [pixel, retro-game, city]
+  use: [backdrop, totem]
+  tagged_by: claude
+  motion: 0.02
