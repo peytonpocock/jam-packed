@@ -135,8 +135,10 @@ def set_uniforms(g, uniforms):
 
 
 def connect(dst, *srcs):
-    for i, s in enumerate(srcs):
-        dst.inputConnectors[i].connect(s)
+    # Multi-input ops (Switch, GLSL) only grow a new input slot once the previous
+    # one is wired, so append each source to the next free input instead of indexing.
+    for s in srcs:
+        s.outputConnectors[0].connect(dst)
 
 
 # ------------------------------------------------------------------ network
@@ -403,7 +405,10 @@ decks = []
 for i, name in enumerate(('vid_a', 'vid_b')):
     d = jam.create(moviefileinTOP, name)
     setpar(d, 'play', True)
-    setmenu(d, 'extendright', 'loop', 'Loop')
+    for pn in ('extendright', 'extend'):   # name differs between TD builds; movies loop by default anyway
+        if getattr(d.par, pn, None) is not None:
+            setmenu(d, pn, 'loop', 'Loop')
+            break
     place(d, 7, 3 + i)
     decks.append(d)
 
