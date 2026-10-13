@@ -170,7 +170,7 @@ It listens to the `audio_in` node, which starts on your default recording device
 
 Press **G** (or **DROP!** on the Drop page) as the drop lands. Everything goes wild in time with the BPM for a few bars, then eases back to exactly how you had it. Press G again to end it early.
 
-- **Style**: Chaos, Glitch, Kaleido, Colour or Warp.
+- **Style**: Chaos, Glitch, Kaleido, Colour, Warp, Tunnel, Retro, Mirror, Liquid or Spotlight. Drops never touch Bloom.
 - **Bars**: how long it lasts (4 by default).
 - **How wild**: how far the sliders get pushed.
 - **Ease back**: how many bars it takes to settle.

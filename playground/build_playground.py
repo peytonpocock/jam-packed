@@ -294,9 +294,12 @@ pd = c.appendCustomPage('Drop')
 pd.appendPulse('Drop', label='DROP! (G)')
 pd.appendStr('Dropstate', label='Status')
 c.par.Dropstate.readOnly = True
-menu(pd, 'Dropstyle', 'Style', ['chaos', 'glitch', 'kaleido', 'colour', 'warp'],
+menu(pd, 'Dropstyle', 'Style',
+     ['chaos', 'glitch', 'kaleido', 'colour', 'warp', 'tunnel', 'retro', 'mirror', 'liquid', 'spotlight'],
      ['Chaos: everything', 'Glitch: RGB split, pixels, scanlines', 'Kaleido: mirrors and spin',
-      'Colour: hue storm and glow', 'Warp: bodies bend the video'])
+      'Colour: hue storm and glow', 'Warp: bodies bend the video', 'Tunnel: rush forwards with trails',
+      'Retro: 8-bit arcade crunch', 'Mirror: quad mirror, spin flips each bar',
+      'Liquid: everything melts and paints', 'Spotlight: video takes over, dark edges'])
 pd.appendInt('Dropbars', label='Bars')
 c.par.Dropbars.normMin, c.par.Dropbars.normMax = 1, 16
 c.par.Dropbars.min, c.par.Dropbars.clampMin = 1, True

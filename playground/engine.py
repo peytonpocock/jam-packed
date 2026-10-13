@@ -394,18 +394,35 @@ def next_autobeat():
 
 DROP_STYLES = {
     # par: value at full drop. A function gets the beat count and returns a value.
-    'chaos': {'Pulse': 1.0, 'Rgbsplit': 0.6, 'Bloom': 0.7, 'Warp': 0.9, 'Glow': 0.8, 'Zoom': 0.6,
+    # Bloom is never touched by a drop.
+    'chaos': {'Pulse': 1.0, 'Rgbsplit': 0.6, 'Warp': 0.9, 'Glow': 0.8, 'Zoom': 0.6,
               'Spin': 0.5, 'Huespeed': 0.8, 'Intensity': 1.0, 'Kaleido': 6, 'Grain': 0.3,
               'Huerotate': lambda beat: (beat * 0.125) % 1.0},
     'glitch': {'Pulse': 1.0, 'Rgbsplit': 0.9, 'Pixelate': 0.5, 'Scanlines': 0.7, 'Posterize': 0.5,
                'Grain': 0.5, 'Warp': 0.6},
-    'kaleido': {'Pulse': 0.8, 'Kaleido': 8, 'Mirror': 3, 'Spin': 0.8, 'Zoom': 0.7, 'Bloom': 0.5,
+    'kaleido': {'Pulse': 0.8, 'Kaleido': 8, 'Mirror': 3, 'Spin': 0.8, 'Zoom': 0.7,
                 'Glow': 0.6, 'Huespeed': 0.5},
-    'colour': {'Pulse': 1.0, 'Bloom': 0.6, 'Glow': 0.9, 'Huespeed': 1.0, 'Videosat': 2.0,
+    'colour': {'Pulse': 1.0, 'Glow': 0.9, 'Huespeed': 1.0, 'Videosat': 2.0,
                'Intensity': 1.0, 'Huerotate': lambda beat: (beat * 0.25) % 1.0,
                'Videohue': lambda beat: (beat * 0.0625) % 1.0},
     'warp': {'Pulse': 0.8, 'Warp': 1.0, 'React': 1.0, 'Zoom': -0.6, 'Spin': -0.5, 'Rgbsplit': 0.3,
-             'Bloom': 0.4, 'Videoblend': 3},
+             'Videoblend': 3},
+    # tunnel: rush forwards with long trails
+    'tunnel': {'Pulse': 0.8, 'Zoom': 1.0, 'Spin': 0.6, 'Trail': 0.95, 'Kaleido': 4, 'Vignette': 0.7,
+               'Huespeed': 0.4},
+    # retro: 8-bit arcade crunch
+    'retro': {'Pulse': 0.9, 'Pixelate': 0.8, 'Posterize': 0.8, 'Scanlines': 0.6, 'Rgbsplit': 0.3,
+              'Grain': 0.2, 'Videosat': 1.6},
+    # mirror: quad mirror whose spin flips direction every bar
+    'mirror': {'Pulse': 0.9, 'Mirror': 3, 'Zoom': 0.4, 'Intensity': 0.9,
+               'Spin': lambda beat: 0.6 if int(beat // 4) % 2 == 0 else -0.6,
+               'Huerotate': lambda beat: (beat * 0.125) % 1.0},
+    # liquid: everything melts and paints over itself
+    'liquid': {'Pulse': 0.6, 'Warp': 1.0, 'Trail': 0.97, 'Shape': 0.8, 'React': 0.8, 'Huespeed': 0.6,
+               'Videoblend': 4},
+    # spotlight: the video takes over, dark edges and hard kicks
+    'spotlight': {'Pulse': 1.0, 'Videomix': 1.0, 'Lookmix': 0.3, 'Vignette': 0.9, 'Rgbsplit': 0.25,
+                  'Videosat': 1.4},
 }
 _drop = {'on': False, 'start': 0.0, 'saved': {}, 'beat': -1}
 
