@@ -21,6 +21,20 @@ vec2 fillUV(vec2 uv, vec2 srcRes)
     return c + 0.5;
 }
 
+// Body mask for the webcam and demo sources (no real depth available).
+float camMask(vec2 uv, int source, bool useBg, float sens)
+{
+    vec4 src = texture(sTD2DInputs[0], uv);
+    if (source == 1 && useBg) {
+        // Webcam: anything that differs from the empty room snapshot
+        vec4 bg = texture(sTD2DInputs[1], uv);
+        float thr = mix(0.35, 0.06, sens);
+        return smoothstep(thr, thr * 1.5, length(src.rgb - bg.rgb));
+    }
+    float l = dot(src.rgb, vec3(0.299, 0.587, 0.114));
+    return smoothstep(0.35, 0.65, l);
+}
+
 void main()
 {
     vec2 uv = vUV.st;
@@ -54,15 +68,21 @@ void main()
         }
         tone = clamp((d - nearD) / (farD - nearD), 0.0, 1.0);
     } else {
-        float l = dot(src.rgb, vec3(0.299, 0.587, 0.114));
-        if (source == 1 && useBg) {
-            // Webcam: anything that differs from the empty room snapshot
-            float thr = mix(0.35, 0.06, sens);
-            mask = smoothstep(thr, thr * 1.5, length(src.rgb - bg.rgb));
-        } else {
-            mask = smoothstep(0.35, 0.65, l);
+        // Simulated depth: the deeper inside a silhouette a pixel is, the
+        // "closer" it counts as, so bodies get rounded 3D-ish shading like the
+        // Kinect gives. Same output format, so the Kinect can swap straight in.
+        mask = camMask(uv, source, useBg, sens);
+        vec2 px = uTD2DInfos[0].res.xy;
+        float inner = 0.0;
+        for (int ring = 1; ring <= 3; ring++) {
+            float r = float(ring) * 7.0;
+            for (int k = 0; k < 8; k++) {
+                float a = float(k) * 0.785398 + float(ring) * 0.4;
+                inner += camMask(uv + vec2(cos(a), sin(a)) * px * r, source, useBg, sens);
+            }
         }
-        tone = l;
+        inner /= 24.0;
+        tone = 1.0 - inner;
     }
 
     fragColor = TDOutputSwizzle(vec4(mask, tone * mask, 0.0, 1.0));

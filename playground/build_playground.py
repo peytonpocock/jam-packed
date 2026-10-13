@@ -187,7 +187,7 @@ pc = c.appendCustomPage('Camera')
 src = pc.appendMenu('Source', label='Source')[0]
 src.menuNames = ['kinect', 'webcam', 'demo']
 src.menuLabels = ['Kinect', 'Webcam', 'Demo dancers']
-c.par.Source = 'demo'
+c.par.Source = 'webcam'
 pc.appendToggle('Mirror', label='Mirror')
 c.par.Mirror = True
 pc.appendPulse('Calibrate', label='Capture empty room (C)')
@@ -369,7 +369,7 @@ def _report():
         for b in bad:
             log('  ' + b)
     else:
-        log('All shaders compiled. You should see the demo dancers in jam/out.')
+        log('All shaders compiled. You should see the visuals in jam/out.')
     for name in ('src_kinect', 'src_webcam'):
         e = jam.op(name).errors()
         if e:

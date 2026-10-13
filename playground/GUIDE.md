@@ -60,10 +60,14 @@ the "Developer Toolkit Browser" depth samples.
    errors. If there are errors, paste the whole Textport output to me in the
    thread and I'll fix it.
 5. Double click the new **jam** node to go inside. The **out** node shows the
-   result. You should see the demo dancers in neon. Click **controls** and
+   result. It starts on your **webcam**. Until you capture the empty room (Step 3) it just reacts to bright areas. Click **controls** and
    press **P** if the slider panel isn't open: those are your faders.
 
-## Step 3: switch to the Kinect
+## Step 3: camera setup (webcam now, Kinect later)
+
+**Webcam:** press **C**, step out of view within 3 seconds, and come back. Now only people light up, with simulated depth shading. Use **Sensitivity** if bits of the room show up or parts of you go missing. Not working? Set Source to **Demo dancers** to keep playing.
+
+**Kinect (once its USB issue is fixed):**
 
 1. On the **controls** node, open the **Camera** page and set **Source** to **Kinect**.
 2. Press **D** (or tick *Show body mask*) to see what the Kinect thinks is a person.
