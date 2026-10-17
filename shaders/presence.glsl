@@ -4,9 +4,11 @@
 //
 // Input 0: raw source (Kinect depth, webcam, demo dancers or an AI body mask)
 // Input 1: background snapshot (captured with the C key)
+// Input 2: AI body mask (used by the hybrid source, which also needs the plain camera on input 0)
 
-uniform vec4 uDepth;   // x Near, y Far, z Source (0 Kinect, 1 webcam, 2 demo, 3 AI mask), w Mirror
+uniform vec4 uDepth;   // x Near, y Far, z Source (0 Kinect, 1 webcam, 2 demo, 3 AI mask, 4 hybrid), w Mirror
 uniform vec4 uBg;      // x Use background, y Sensitivity, z AI mask channel (0 brightness, 1 alpha, 2 red)
+uniform vec4 uHy;      // hybrid: x combine (0 either, 1 both, 2 mix, 3 AI + room edges), y mix weight (0 AI .. 1 room), z room sensitivity
 
 layout(location = 0) out vec4 fragColor;
 
@@ -21,23 +23,46 @@ vec2 fillUV(vec2 uv, vec2 srcRes)
     return c + 0.5;
 }
 
-// Body mask for the webcam, demo and AI sources (no real depth available).
+// AI matte: Sensitivity moves the cut-off
+float aiMask(vec4 m, float sens)
+{
+    int ch = int(uBg.z + 0.5);
+    float v = ch == 1 ? m.a : (ch == 2 ? m.r : dot(m.rgb, vec3(0.299, 0.587, 0.114)));
+    float mid = mix(0.75, 0.25, sens);
+    return smoothstep(mid - 0.15, mid + 0.15, v);
+}
+
+// Anything that differs from the empty room snapshot
+float roomMask(vec3 cam, vec3 bg, float sens)
+{
+    float thr = mix(0.35, 0.06, sens);
+    return smoothstep(thr, thr * 1.5, length(cam - bg));
+}
+
+// Body mask for the webcam, demo, AI and hybrid sources (no real depth available).
 float camMask(vec2 uv, int source, bool useBg, float sens)
 {
     vec4 src = texture(sTD2DInputs[0], uv);
-    if (source == 3) {
-        // AI mask: already a person matte, Sensitivity moves the cut-off
-        int ch = int(uBg.z + 0.5);
-        float v = ch == 1 ? src.a : (ch == 2 ? src.r : dot(src.rgb, vec3(0.299, 0.587, 0.114)));
-        float mid = mix(0.75, 0.25, sens);
-        return smoothstep(mid - 0.15, mid + 0.15, v);
+    if (source == 3)
+        return aiMask(src, sens);
+    if (source == 4) {
+        float a = aiMask(texture(sTD2DInputs[2], uv), sens);
+        float r = roomMask(src.rgb, texture(sTD2DInputs[1], uv).rgb, clamp(uHy.z, 0.0, 1.0));
+        int mode = int(uHy.x + 0.5);
+        if (mode == 0) return max(a, r);                       // either one sees you
+        if (mode == 1) return min(a, r);                       // both have to agree
+        if (mode == 2) return mix(a, r, clamp(uHy.y, 0.0, 1.0));
+        // AI shape, plus whatever the room capture finds right next to it (arms, hair, props)
+        float near = 0.0;
+        vec2 px = uTD2DInfos[2].res.xy * 12.0;
+        for (int k = 0; k < 8; k++) {
+            float ang = float(k) * 0.785398;
+            near = max(near, aiMask(texture(sTD2DInputs[2], uv + vec2(cos(ang), sin(ang)) * px), sens));
+        }
+        return max(a, r * near * clamp(uHy.y * 2.0, 0.0, 1.0));
     }
-    if (source == 1 && useBg) {
-        // Webcam: anything that differs from the empty room snapshot
-        vec4 bg = texture(sTD2DInputs[1], uv);
-        float thr = mix(0.35, 0.06, sens);
-        return smoothstep(thr, thr * 1.5, length(src.rgb - bg.rgb));
-    }
+    if (source == 1 && useBg)
+        return roomMask(src.rgb, texture(sTD2DInputs[1], uv).rgb, sens);
     float l = dot(src.rgb, vec3(0.299, 0.587, 0.114));
     return smoothstep(0.35, 0.65, l);
 }

@@ -188,3 +188,21 @@ A neural net finds people instead of comparing against the empty room, so it cop
 3. On the Camera page press **Find AI mask**. It points the mask at MediaPipe's output and switches Source to the AI body mask.
 4. Once MediaPipe is linked it owns the webcam (Windows only lets one program use it). Webcam mode then reads MediaPipe's plain camera picture, and the playground switches MediaPipe's segmentation on in AI mode and off in the others by itself. MediaPipe already mirrors the picture, so leave **Mirror camera** off.
 5. If people show up inverted or blank, try **AI mask is in**: Brightness, Alpha or Red. **Sensitivity** moves the edge in or out.
+
+## Hybrid body detection (AI + room capture)
+
+Source **Hybrid** runs the AI mask and the empty-room comparison at the same time and merges them, so if lighting on the night confuses one, the other can carry it.
+
+It needs the plain camera picture and the AI mask together, and Windows only lets one program use the webcam. So the playground keeps the webcam and hands a copy to MediaPipe through **SpoutCam**, a free virtual webcam:
+
+1. Download SpoutCam (github.com/leadedge/SpoutCam, Releases), unzip it anywhere and run **SpoutCamSettings.exe**. Set the starting sender to `TDSyphonSpoutOut`, fps 30, resolution 1280x720, and press **Register**.
+2. Restart TouchDesigner so the new camera shows up.
+3. Camera page: turn on **Share camera via SpoutCam**. The playground switches MediaPipe's webcam to SpoutCam and turns its horizontal flip off (our **Mirror camera** flips both pictures together).
+4. Pick Source **Hybrid**, stand out of shot and press **Capture empty room (C)**.
+
+Settings:
+- **Hybrid combine**: *Either one sees you* (most forgiving, best default), *Both must agree* (cleanest, fewest false bits), *Mix by weight*, or *AI shape + room edges* (AI body plus anything the room capture finds right next to it, like arms, hair or props).
+- **Hybrid room amount**: how much the room capture counts in Mix, or how far it can add edges.
+- **Hybrid room sensitivity**: the room capture's own sensitivity. **Sensitivity** still sets the AI cut-off.
+
+With SpoutCam on, every other Source keeps working as before (Webcam reads our own webcam again).

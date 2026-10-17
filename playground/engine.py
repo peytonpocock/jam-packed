@@ -519,29 +519,60 @@ def drop_frame(c, now):
         c.par.Look = _drop['saved']['Look']             # land back on your look as it eases out
 
 
-_mp = {'source': None}
+_mp = {'state': None}
+
+
+def _mp_par(comp, label):
+    for p in comp.customPars:
+        if p.label.strip().lower() == label:
+            return p
+    return None
 
 
 def mediapipe_frame(c):
-    """MediaPipe owns the webcam once linked: segmentation on in AI mode, plain video otherwise."""
+    """Keep the MediaPipe plugin in step with the Source and SpoutCam settings."""
     src = c.par.Source.eval()
-    if src == _mp['source']:
+    spout = bool(c.par.Spoutcam.eval())
+    if (src, spout) == _mp['state']:
         return
-    _mp['source'] = src
+    _mp['state'] = (src, spout)
     m = c.par.Aimask.eval()
     if not m:
+        if src == 'hybrid':
+            say('Hybrid needs the AI mask: link MediaPipe with Find AI mask first.')
         return
     comp = m.parent()
     while comp is not None and 'mediapipe' not in comp.name.lower():
         comp = comp.parent()
     if comp is None:
         return
-    for p in comp.customPars:
-        if p.label.strip().lower() == 'image segmentation':
-            p.val = (src == 'ai')
-        elif p.label.strip().lower() == 'show overlays':
-            p.val = False
-    say('MediaPipe: ' + ('body mask on' if src == 'ai' else 'plain camera for ' + src + ' mode'))
+    seg = _mp_par(comp, 'image segmentation')
+    if seg is not None:
+        seg.val = src in ('ai', 'hybrid')
+    ov = _mp_par(comp, 'show overlays')
+    if ov is not None:
+        ov.val = False
+    if spout:
+        flip = _mp_par(comp, 'horizontal flip')      # we mirror both pictures ourselves, so the mask must match the raw camera
+        if flip is not None:
+            flip.val = False
+        cam = _mp_par(comp, 'webcam')
+        if cam is not None and cam.isMenu:
+            pick = [n for n, l in zip(cam.menuNames, cam.menuLabels) if 'spout' in (n + l).lower()]
+            if pick:
+                cam.val = pick[0]
+            else:
+                say('SpoutCam is not showing in MediaPipe\'s webcam list yet. Register it with SpoutCamSettings, then restart TouchDesigner.')
+    else:
+        cam = _mp_par(comp, 'webcam')
+        if cam is not None and cam.isMenu and 'spout' in str(cam.val).lower():
+            real = [n for n, l in zip(cam.menuNames, cam.menuLabels) if 'spout' not in (n + l).lower()]
+            if real:
+                cam.val = real[0]                    # back to a real camera
+    if not spout and src == 'hybrid':
+        say('Hybrid needs both the camera picture and the AI mask at once: turn on Share camera via SpoutCam.')
+    say('MediaPipe: ' + ('body mask on' if src in ('ai', 'hybrid') else 'plain camera for ' + src + ' mode')
+        + (', fed by SpoutCam' if spout else ''))
 
 
 def on_frame():

@@ -314,11 +314,16 @@ t.default = True
 t.val = True
 
 pc = c.appendCustomPage('Camera')
-menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo', 'ai'],
-     ['Kinect', 'Webcam', 'Demo dancers', 'AI body mask (MediaPipe)'], 'webcam')
+menu(pc, 'Source', 'Source', ['kinect', 'webcam', 'demo', 'ai', 'hybrid'],
+     ['Kinect', 'Webcam', 'Demo dancers', 'AI body mask (MediaPipe)', 'Hybrid: AI + room capture'], 'webcam')
 pc.appendTOP('Aimask', label='AI mask image')
 pc.appendPulse('Findai', label='Find AI mask')
 menu(pc, 'Aichannel', 'AI mask is in', ['lum', 'alpha', 'red'], ['Brightness', 'Alpha', 'Red'])
+pc.appendToggle('Spoutcam', label='Share camera via SpoutCam')
+menu(pc, 'Hybridmode', 'Hybrid combine', ['either', 'both', 'mix', 'edges'],
+     ['Either one sees you', 'Both must agree', 'Mix by weight', 'AI shape + room edges'])
+fl('Hybridweight', 'Hybrid room amount', 0.5, page=pc)
+fl('Roomsens', 'Hybrid room sensitivity', 0.5, page=pc)
 pc.appendToggle('Flip', label='Mirror camera')
 c.par.Flip = True
 pc.appendPulse('Calibrate', label='Capture empty room (C)')
@@ -400,18 +405,29 @@ connect(alt, demo, ai)
 setexpr(alt, 'index', "int(op('controls').par.Source.menuIndex == 3)")
 place(alt, 1, 2)
 
-# Windows only lets one program use the webcam at a time. Once MediaPipe is linked it owns the camera,
-# so webcam mode reads its plain video (segmentation off) and our own webcam input stands down.
+# Windows only lets one program use the webcam at a time. Two ways round it:
+# - Share camera via SpoutCam ON: we own the webcam and pass it to MediaPipe through the SpoutCam
+#   virtual camera, so the plain picture and the AI mask exist together (needed for Hybrid).
+# - OFF: once MediaPipe is linked it owns the camera, webcam mode reads its plain video
+#   (segmentation off) and our own webcam input stands down.
 MP_LINKED = "bool(op('controls').par.Aimask.eval())"
-setexpr(cam, 'active', 'not ' + MP_LINKED)
+MP_OWNS = "({} and not op('controls').par.Spoutcam.eval())".format(MP_LINKED)
+setexpr(cam, 'active', 'not ' + MP_OWNS)
 campick = jam.create(switchTOP, 'cam_pick')
 connect(campick, cam, ai)
-setexpr(campick, 'index', 'int({})'.format(MP_LINKED))
+setexpr(campick, 'index', 'int({})'.format(MP_OWNS))
 place(campick, 1, 0)
+try:
+    spout = jam.create(syphonspoutoutTOP, 'to_spoutcam')
+    connect(spout, cam)
+    setexpr(spout, 'active', "op('controls').par.Spoutcam.eval()")
+    place(spout, 1, -1)
+except Exception as e:
+    warn('Could not make the SpoutCam sender: {}'.format(e))
 
 srcsw = jam.create(switchTOP, 'src_switch')
 connect(srcsw, k, campick, alt)
-setexpr(srcsw, 'index', "min(op('controls').par.Source.menuIndex, 2)")
+setexpr(srcsw, 'index', "[0, 1, 2, 2, 1][op('controls').par.Source.menuIndex]")   # hybrid reads the camera
 place(srcsw, 1, 1)
 
 bg = jam.create(cacheTOP, 'bg')
@@ -423,10 +439,11 @@ place(bg, 2, 2)
 
 # ---- Body mask
 pres = glsl(jam, 'presence', 'presence.glsl', 3, 1, PRES_W, PRES_H, float_fmt=True)
-connect(pres, srcsw, bg)
+connect(pres, srcsw, bg, ai)
 set_uniforms(pres, [
     ('uDepth', [P('Near'), P('Far'), M('Source'), P('Flip')]),
     ('uBg', [P('Usebg'), P('Sensitivity'), M('Aichannel'), 0]),
+    ('uHy', [M('Hybridmode'), P('Hybridweight'), P('Roomsens'), 0]),
 ])
 blur = jam.create(blurTOP, 'presence_blur')
 connect(blur, pres)
